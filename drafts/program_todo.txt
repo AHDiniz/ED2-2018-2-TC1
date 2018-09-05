@@ -1,0 +1,11 @@
+Coisas que o programa deve fazer:
+
+1 - Ler arquivo de entrada;
+2 - Criar um vetor de tuplas com as coordenadas dos pontos;
+3 - Criar matriz "diagonal superior" (não tem a diagonal principal) onde M[i,j] é a distância entre Pi e Pj:
+    - Os pontos deves ser implementados de forma que eles possam ser ordenados;
+4 - Ordenar a matriz?
+5 - Percorrer a matriz marcando os pontos encontrados;
+6 - Remover os pontos que já estiverem marcados;
+7 - Selecionar os pontos restantes;
+8 - Remover itens repetidos.
