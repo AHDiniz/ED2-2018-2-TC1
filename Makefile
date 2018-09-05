@@ -4,3 +4,6 @@
 # Rafael Belmock Pedruzzi
 #
 # Project's makefile
+
+clean:
+	rm *.o
