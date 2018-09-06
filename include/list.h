@@ -20,6 +20,13 @@
 typedef struct list List;
 
 /**
+ * Declaring a type that's a callback to a function that destroys an item's content:
+ * Input: void pointer to the item's content
+ * Output: none
+*/
+typedef void (*List_DestroyContent) (void *);
+
+/**
  * Declaring the function that allocates the space for a new list item:
  * Inputs: pointer to content, pointer to next and previous items of the list
  * Output: pointer to dynamically allocated list item structure
@@ -72,5 +79,14 @@ bool List_Add(List *item, List *list, int position);
  * Side effects: the target item won't be in the list anymore
 */
 List *List_Remove(List *list, int position);
+
+/**
+ * Declaring the function that destroys a list and it's items:
+ * Input: pointer to the list and function that destroys the item's content
+ * Output: boolean that tells if the operation was a success or not
+ * Conditions: existent and allocated list and valid function
+ * Side effects: all items are destroyed and the entry pointer points to NULL
+*/
+bool List_Destroy(List *list, List_DestroyContent Destroy);
 
 #endif // LIST_H_
