@@ -25,7 +25,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     while(strcmp(s,"NAME:") != 0)
     {
-        fscanf(in,"%[^\n]%*c");
+        fscanf(in,"%*[^\n]%*c");
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
     fscanf(in,"%s", name);// printf("name = %s\n", name);
@@ -33,7 +33,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     while(strcmp(s,"TYPE:") != 0)
     {
-        fscanf(in,"%[^\n]%*c");
+        fscanf(in,"%*[^\n]%*c");
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
     fscanf(in,"%s", s);// printf("s = %s\n", s);
@@ -45,7 +45,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     while(strcmp(s,"DIMENSION:") != 0)
     {
-        fscanf(in,"%[^\n]%*c");
+        fscanf(in,"%*[^\n]%*c");
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
     fscanf(in,"%s", s);// printf("s = %s\n", s);
@@ -55,7 +55,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     while(strcmp(s,"EDGE_WEIGHT_TYPE:") != 0)
     {
-        fscanf(in,"%[^\n]%*c");
+        fscanf(in,"%*[^\n]%*c");
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
     fscanf(in,"%s", s);
@@ -67,7 +67,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     while(strcmp(s,"NODE_COORD_SECTION") != 0)
     {
-        fscanf(in,"%[^\n]%*c");
+        fscanf(in,"%*[^\n]%*c");
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
 
