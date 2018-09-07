@@ -20,6 +20,6 @@ int main(int argc, char *argv[])
 
     
 
-    TSPIO_DestroyVector(p,dimension);
+    TSPIO_DestroyArrey(p,dimension);
     return 0;
 }
