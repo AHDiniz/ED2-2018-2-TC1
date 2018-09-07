@@ -12,14 +12,12 @@
 
 #include "../include/tspio.h"
 
-int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
+Point** TSPIO_ReadEntry(char *filename, char *name, int *dimension)
 {
     FILE *in = fopen(filename,"r");
-    int dimension;
+    Point **p;
     int i;
-    //char x[20], y[20];
     float x, y;
-
     char s[20];
 
     fscanf(in,"%s", s);// printf("s = %s\n", s);
@@ -50,7 +48,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
     fscanf(in,"%s", s);// printf("s = %s\n", s);
-    dimension = atoi(s);
+    *dimension = atoi(s);
     //printf("dim = %d\n", dimension);
 
     fscanf(in,"%s", s);// printf("s = %s\n", s);
@@ -73,8 +71,8 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
         fscanf(in,"%s", s);// printf("s = %s\n", s);
     }
 
-    p = malloc(dimension*sizeof(Point*));
-    for(i = 0 ; i < dimension ; i++)
+    p = malloc((*dimension)*sizeof(Point*));
+    for(i = 0 ; i < *dimension ; i++)
     {
         fscanf(in,"%*s %f %f\n", &x, &y);// printf("xl = %f yl = %f\n", x, y);
         p[i] = Point_Create(x,y);// printf("xp = %f yp = %f\n", Point_GetX(p[i]), Point_GetY(p[i]));
@@ -83,10 +81,10 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
 
     fclose(in);
 
-    return dimension;
+    return p;
 }
 
-void TSPIO_DestroyVector(Point *p[], int n)
+void TSPIO_DestroyVector(Point **p, int n)
 {
     int i;
     for(i = 0 ; i < n ; i++)
