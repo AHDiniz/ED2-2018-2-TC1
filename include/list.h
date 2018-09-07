@@ -70,22 +70,22 @@ int List_Length(List *list);
 bool List_IsEmpty(List *list);
 
 /**
- * Declaring the function thar adds an item to the list in a certain position:
- * Inputs: pointers to the item and to the list and the desired position of the item
+ * Declaring the function thar adds an item to the list in the end of the list:
+ * Inputs: pointers to the item and to the list
  * Output: bool that tells the success of the operation
- * Conditions: existent and allocated item and list and valid position
- * Side effects: the item is added to the list
+ * Conditions: existent and allocated item and list
+ * Side effects: the item is added to the end of list
 */
-bool List_Add(List *item, List *list, int position);
+bool List_Add(List *item, List *list);
 
 /**
- * Declaring the function that removes an item in a certain position from the list:
- * Inputs: pointer to the list and the target's position
+ * Declaring the function that removes an item that has a certain content from the list:
+ * Inputs: pointer to the list, the content of the target item and and comparision operation (true if equal, false if not)
  * Output: pointer to the removed item
- * Conditions: existent and allocated list and valid position
- * Side effects: the target item won't be in the list anymore
+ * Conditions: existent and allocated list, valid content and function
+ * Side effects: the target item won't be in the list anymore, and the first one found will be returned
 */
-List *List_Remove(List *list, int position);
+List *List_Remove(List *list, void *content, List_Operation Compare);
 
 /**
  * Declaring the function that destroys a list and it's items:

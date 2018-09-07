@@ -18,8 +18,6 @@
 */
 typedef struct point Point;
 
-#define Point_Size sizeof(point)
-
 /**
  * Declaring the function that allocates and returns a new point:
  * Inputs: the coordinates of the point
@@ -47,8 +45,31 @@ void Point_Destroy(void *point);
 */
 bool Point_Print(void *point, void *placeholder);
 
+/**
+ * Declaring the function that compares two points:
+ * Inputs: pointers to the points
+ * Output: boolean that tells if the points are equal
+ * Coditions: existent and allocated points
+ * Side effects: none
+*/
+bool Point_Compare(void *pointA, void *pointB);
+
+/**
+ * Declaring the function that marks a given point:
+ * Input: pointer to the point
+ * Output: none
+ * Conditions: existent and allocated point
+ * Side effects: the point is marked
+*/
 void Point_Mark(Point* point);
 
+/**
+ * Declaring the function that returns if a point is or isn't marked:
+ * Input: pointer to the point
+ * Output: boolean that tells if the point is or isn't marked
+ * Conditions: existent and allocated point
+ * Side effects: none
+*/
 bool Point_IsMarked(Point* point);
 
 #endif // POINT_H_

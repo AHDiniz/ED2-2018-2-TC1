@@ -40,12 +40,22 @@ bool Point_Print(void *point, void *placeholder)
     return false;
 }
 
-void Point_Mark(Point* point)
+// Defining the function that compares two points:
+bool Point_Compare(void *pointA, void *pointB)
+{
+    Point *a = (Point *)pointA;
+    Point *b = (Point *)pointB;
+    return a->x == b->x && a->y == b->y;
+}
+
+// Defining the function that marks a point:
+void Point_Mark(Point *point)
 {
     point->isMarked = true;
 }
 
-bool Point_IsMarked(Point* point)
+// Defining the function that checks if a point is marked:
+bool Point_IsMarked(Point *point)
 {
     return point->isMarked;
 }

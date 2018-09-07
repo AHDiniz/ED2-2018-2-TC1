@@ -7,6 +7,7 @@
 
 #include "../include/list.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // Defining a list struct:
 struct list
@@ -50,60 +51,28 @@ bool List_IsEmpty(List *list)
     return list == NULL;
 }
 
-// Defining the function that adds an item to a list in a given position:
-bool List_Add(List *item, List *list, int position)
+// Defining the function that adds an item to a list in the end of it:
+bool List_Add(List *item, List *list)
 {
-    if (item == NULL || list == NULL) // Checking if the item and the list are not NULL
-        return false;
-    int length = List_Length(list); // Calculating the length of the list
-    if (position < 0 || position > length) // Checking if the position is valid
-        return false;
-    if (position == 0) // If the target is the first item, the item will be added without the need of a loop
+    if (item != NULL && list != NULL) // Checking if the input is valid
     {
-        item->next = list;
+        // Adding the item in the end of the list:
         list->prev = item;
+        item->next = list;
         list = item;
         return true;
     }
-    // Otherwise, a loop will be used to search the target item:
-    int i = 0;
-    List *current = list;
-    while (current != NULL && i <= length)
-    {
-        if (i == position) // If the current item is in the target position, it will be pushed by the entry item in the list
-        {
-            item->next = current;
-            item->prev = current->prev;
-            current->prev->next = item;
-            current->prev = item;
-            return true;
-        }
-        current = current->next;
-        i++;
-    }
-    return false;
+    else return false;
 }
 
 // Defining the function that removes an item from the list:
-List *List_Remove(List *list, int position)
+List *List_Remove(List *list, void *content, List_Operation Compare)
 {
-    if (list == NULL) // Checking if the list is valid
+    if (list == NULL || content == NULL || Compare == NULL)
         return NULL;
-    int length = List_Length(list); // Calculating the length of the list
-    int i = 0;
-    List *current = list;
-    while (current != NULL && i < length) // Searching the target item to be removed
-    {
-        if (i == position) // If the position is the targeted one, then the item in the position will be removed:
-        {
-            current->prev->next = current->next;
-            current->next->prev = current->prev;
-            current->prev = current->next = NULL;
+    for (List *current = list; current != NULL; current = current->next)
+        if (Compare(current->content, content))
             return current;
-        }
-        i++;
-        current = current->next;
-    }
     return NULL;
 }
 

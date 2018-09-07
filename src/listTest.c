@@ -24,20 +24,20 @@ int main(int argc, char *argv[])
     List *item3 = List_Create(p3);
     List *item4 = List_Create(p4);
     List *item5 = List_Create(p5);
-    List_Add(item2, list, 0);
-    List_Add(item3, list, 0);
-    List_Add(item4, list, 0);
-    List_Add(item5, list, 0);
+    List_Add(item2, list);
+    List_Add(item3, list);
+    List_Add(item4, list);
+    List_Add(item5, list);
 
     // Printing the list:
     List_RunThrough(list, Point_Print, NULL);
 
     // Removing a item from the list and then destroying it:
-    List *item = List_Remove(list, 0);
-    Point *point = (Point *)List_Content(item);
-    printf("Removed point: ");
-    Point_Print(point, NULL);
-    Point_Destroy(point);
+    // List *item = List_Remove(list, p1, Point_Compare);
+    // Point *point = (Point *)List_Content(item);
+    // printf("Removed point: ");
+    // Point_Print(point, NULL);
+    // Point_Destroy(point);
 
     // Destroying the list and it's items:
     List_Destroy(list, Point_Destroy);
