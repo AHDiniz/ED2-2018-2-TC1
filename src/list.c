@@ -59,6 +59,8 @@ bool List_Add(List *item, List *list)
         List *current;
         for (current = list; current->next != NULL; current = current->next);
         current->next = item;
+        item->prev = current;
+        item->next = NULL;
         return true;
     }
     else return false;
