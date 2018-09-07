@@ -37,13 +37,14 @@ Point* TSPIO_ReadEntry(char* filename, char* name, int* dimension)
         exit(1);
     }
 
-    fscanf(in,"%s", s);
+    fscanf(in,"%s", s); printf("s = %s\n", s);
     while(strcmp(s,"DIMENSION:") != 0)
     {
         fscanf(in,"%s", s); printf("s = %s\n", s);
     }
-    fscanf(in,"%s", dimension); printf("s = %s\n", s);
-    *dimension = atoi(s); printf("dim = %d\n", *dimension);
+    fscanf(in,"%s", s); printf("s = %s\n", s);
+    *dimension = atoi(s);
+    printf("dim = %d\n", *dimension);
 
     fscanf(in,"%s", s);
     while(strcmp(s,"EDGE_WEIGHT_TYPE:") != 0)
