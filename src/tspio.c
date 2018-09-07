@@ -76,7 +76,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     {
         fscanf(in,"%*s %f %f\n", &x, &y);// printf("xl = %f yl = %f\n", x, y);
         p[i] = Point_Create(x,y);// printf("xp = %f yp = %f\n", Point_GetX(p[i]), Point_GetY(p[i]));
-        //Point_Print(p[i],NULL);
+        Point_Print(p[i],NULL);
     }
 
     fclose(in);
