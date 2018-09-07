@@ -36,7 +36,7 @@ void Point_Destroy(void *point)
 bool Point_Print(void *point, void *placeholder)
 {
     Point *p = (Point *)point;
-    printf("x = %d, y = %d\n", p->x, p->y);
+    printf("x = %f, y = %f\n", p->x, p->y);
     return false;
 }
 

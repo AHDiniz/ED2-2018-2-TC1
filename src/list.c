@@ -56,10 +56,9 @@ bool List_Add(List *item, List *list)
 {
     if (item != NULL && list != NULL) // Checking if the input is valid
     {
-        // Adding the item in the end of the list:
-        list->prev = item;
-        item->next = list;
-        list = item;
+        List *current;
+        for (current = list; current->next != NULL; current = current->next);
+        current->next = item;
         return true;
     }
     else return false;

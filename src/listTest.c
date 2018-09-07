@@ -32,13 +32,6 @@ int main(int argc, char *argv[])
     // Printing the list:
     List_RunThrough(list, Point_Print, NULL);
 
-    // Removing a item from the list and then destroying it:
-    // List *item = List_Remove(list, p1, Point_Compare);
-    // Point *point = (Point *)List_Content(item);
-    // printf("Removed point: ");
-    // Point_Print(point, NULL);
-    // Point_Destroy(point);
-
     // Destroying the list and it's items:
     List_Destroy(list, Point_Destroy);
 
