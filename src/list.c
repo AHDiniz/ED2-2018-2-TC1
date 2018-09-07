@@ -80,7 +80,7 @@ List *List_Remove(List *list, void *content, List_Operation Compare)
     }
     else
     {
-        for (List *current = list; current->next != NULL; current = current->next)
+        for (List *current = list->next; current->next != NULL; current = current->next)
         {
             if (Compare(current->content, content))
             {
@@ -116,6 +116,8 @@ bool List_Destroy(List *list, List_DestroyContent Destroy)
 // Defining the function that runs through the list applying an operation on the items:
 bool List_RunThrough(List *list, List_Operation Operation, void *data)
 {
+    if (list == NULL || Operation == NULL)
+        return false;
     for (List *current = list; current != NULL; current = current->next)
         if (Operation(current->content, data))
             return true;
