@@ -39,6 +39,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);// printf("s = %s\n", s);
     if(strcmp(s,"TSP") != 0)
     {
+        printf("ERROR: Type must be TSP\n");
         exit(1);
     }
 
@@ -61,6 +62,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     fscanf(in,"%s", s);
     if(strcmp(s,"EUC_2D") != 0)
     {
+        printf("ERROR: Edge Weight Type must be EUC_2D\n");
         exit(1);
     }
 
@@ -76,7 +78,7 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
     {
         fscanf(in,"%*s %f %f\n", &x, &y);// printf("xl = %f yl = %f\n", x, y);
         p[i] = Point_Create(x,y);// printf("xp = %f yp = %f\n", Point_GetX(p[i]), Point_GetY(p[i]));
-        Point_Print(p[i],NULL);
+        //Point_Print(p[i],NULL);
     }
 
     fclose(in);
@@ -86,7 +88,8 @@ int TSPIO_ReadEntry(char *filename, char *name, Point *p[])
 
 void TSPIO_DestroyVector(Point *p[], int n)
 {
-    for(int i = 0 ; i < n ; i++)
+    int i;
+    for(i = 0 ; i < n ; i++)
     {
         Point_Destroy(p[i]);
     }
