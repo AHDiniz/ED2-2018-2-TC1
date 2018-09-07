@@ -18,6 +18,8 @@
 */
 typedef struct point Point;
 
+#define Point_Size sizeof(point)
+
 /**
  * Declaring the function that allocates and returns a new point:
  * Inputs: the coordinates of the point
@@ -44,5 +46,9 @@ void Point_Destroy(void *point);
  * Side effects: none
 */
 bool Point_Print(void *point, void *placeholder);
+
+void Point_Mark(Point* point);
+
+bool Point_IsMarked(Point* point);
 
 #endif // POINT_H_
