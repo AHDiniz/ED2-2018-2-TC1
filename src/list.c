@@ -110,11 +110,11 @@ List *List_Remove(List *list, int position)
 // Defining the function that destroys a list:
 bool List_Destroy(List *list, List_DestroyContent Destroy)
 {
-    if (list == NULL) // Checking if the list is valid
+    if (list == NULL) // Checking if the list is valid:
         return false;
     List *current = list;
     List *target;
-    while (current != NULL) // Looping through the list and destroying every item
+    while (current != NULL) // Looping through the list and destroying every item:
     {
         target = current;
         current = current->next;
@@ -122,6 +122,15 @@ bool List_Destroy(List *list, List_DestroyContent Destroy)
             Destroy(target->content);
         free(target);
     }
-    list = NULL;
+    list = NULL; // Making the list pointer point to NULL when the operation is done
     return true;
+}
+
+// Defining the function that runs through the list applying an operation on the items:
+bool List_RunThrough(List *list, List_Operation Operation, void *data)
+{
+    for (List *current = list; current != NULL; current = current->next)
+        if (Operation(current->content, data))
+            return true;
+    return false;
 }

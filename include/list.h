@@ -27,6 +27,13 @@ typedef struct list List;
 typedef void (*List_DestroyContent) (void *);
 
 /**
+ * Declaring a type that's a callback to a function that applys a operation to a list item:
+ * Inputs: pointer to the item's content and to the operation's other data
+ * Output: boolean that tells if the operation was or not a success
+*/
+typedef bool (*List_Operation) (void *, void *);
+
+/**
  * Declaring the function that allocates the space for a new list item:
  * Inputs: pointer to content, pointer to next and previous items of the list
  * Output: pointer to dynamically allocated list item structure
@@ -82,11 +89,21 @@ List *List_Remove(List *list, int position);
 
 /**
  * Declaring the function that destroys a list and it's items:
- * Input: pointer to the list and function that destroys the item's content
+ * Inputs: pointer to the list and function that destroys the item's content
  * Output: boolean that tells if the operation was a success or not
  * Conditions: existent and allocated list and valid function
  * Side effects: all items are destroyed and the entry pointer points to NULL
 */
 bool List_Destroy(List *list, List_DestroyContent Destroy);
+
+/**
+ * Declaring the function that allows the user to make a given operation on every item on the list:
+ * Inputs: pointer to the list and the desired operation function
+ * Output: boolean that says if the operation was or not a success
+ * Conditions: existent and allocated list and valid function
+ * Side effects: that depends on the operation that the user pass
+ * Observation: if you want to run through every item, pass an operation that always returns false
+*/
+bool List_RunThrough(List *list, List_Operation Operation, void *data);
 
 #endif // LIST_H_
