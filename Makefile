@@ -14,5 +14,5 @@ SRC = src/
 clean:
 	rm *.o
 
-listTest: $(SRC)list.c $(SRC)listTest.c
+listTest: $(SRC)list.c $(SRC)listTest.c $(SRC)point.c
 	$(CC) -o $@ $^ $(CFLAGS)

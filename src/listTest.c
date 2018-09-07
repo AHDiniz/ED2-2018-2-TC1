@@ -3,7 +3,7 @@
 // Alan Herculano Diniz
 // Rafael Belmock Pedruzzi
 //
-// listTest.c: list tester entry point
+// listTest.c: list and point tester entry point
 
 #include <stdio.h>
 #include "../include/list.h"
