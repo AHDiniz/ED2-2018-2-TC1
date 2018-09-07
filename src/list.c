@@ -69,9 +69,26 @@ List *List_Remove(List *list, void *content, List_Operation Compare)
 {
     if (list == NULL || content == NULL || Compare == NULL)
         return NULL;
-    for (List *current = list; current != NULL; current = current->next)
-        if (Compare(current->content, content))
-            return current;
+    if (Compare(content, list->content))
+    {
+        List *ret = list;
+        list = list->next;
+        ret->next = NULL;
+        return ret;
+    }
+    else
+    {
+        for (List *current = list; current->next != NULL; current = current->next)
+        {
+            if (Compare(current->content, content))
+            {
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
+                current->prev = current->next = NULL;
+                return current;
+            }
+        }
+    }
     return NULL;
 }
 

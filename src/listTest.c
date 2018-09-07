@@ -32,6 +32,36 @@ int main(int argc, char *argv[])
     // Printing the list:
     List_RunThrough(list, Point_Print, NULL);
 
+    // Removing the top item and then destroying it:
+    List *item = List_Remove(list, p1, Point_Compare);
+    printf("Removed top point: ");
+    Point_Print(List_Content(item), NULL);
+    List_Destroy(item, Point_Destroy);
+
+    // Printing the list:
+    printf("\nCurrent list state:\n");
+    List_RunThrough(list, Point_Print, NULL);
+
+    // Removing a middle item and then destroying it:
+    item3 = List_Remove(list, p3, Point_Compare);
+    printf("Removed middle point: ");
+    Point_Print(List_Content(item3), NULL);
+    List_Destroy(item3, Point_Destroy);
+
+    // Printing the list:
+    printf("\nCurrent list state:\n");
+    List_RunThrough(list, Point_Print, NULL);
+
+    // Removing the bottom item and then destroying it:
+    item5 = List_Remove(list, p5, Point_Compare);
+    printf("Removed bottom point: ");
+    Point_Print(List_Content(item5), NULL);
+    List_Destroy(item5, Point_Destroy);
+
+    // Printing the list:
+    printf("\nCurrent list state:\n");
+    List_RunThrough(list, Point_Print, NULL);
+
     // Destroying the list and it's items:
     List_Destroy(list, Point_Destroy);
 
