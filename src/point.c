@@ -12,12 +12,12 @@
 // Defining the point structure:
 struct point
 {
-    int x, y; // Cartesian coordinates of the point
+    float x, y; // Cartesian coordinates of the point
     bool isMarked;
 };
 
 // Defining the function that creates a new point:
-Point *Point_Create(int x, int y)
+Point *Point_Create(float x, float y)
 {
     Point *p = malloc(sizeof(*p));
     p->x = x;
@@ -61,13 +61,13 @@ bool Point_IsMarked(Point *point)
 }
 
 // Defining the function that returns the x coordinate of the point:
-int Point_GetX(Point *point)
+float Point_GetX(Point *point)
 {
     return point->x;
 }
 
 // Defining the function that returns the y coordinate of the point:
-int Point_GetY(Point *point)
+float Point_GetY(Point *point)
 {
     return point->y;
 }
