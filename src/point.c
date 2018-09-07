@@ -59,3 +59,15 @@ bool Point_IsMarked(Point *point)
 {
     return point->isMarked;
 }
+
+// Defining the function that returns the x coordinate of the point:
+int Point_GetX(Point *point)
+{
+    return point->x;
+}
+
+// Defining the function that returns the y coordinate of the point:
+int Point_GetY(Point *point)
+{
+    return point->y;
+}

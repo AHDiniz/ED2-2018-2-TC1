@@ -72,4 +72,22 @@ void Point_Mark(Point* point);
 */
 bool Point_IsMarked(Point* point);
 
+/**
+ * Declaring the function that gets the x coordinate of the point:
+ * Input: pointer to the point
+ * Output: x coordinate of the point
+ * Conditions: existent and allocated point
+ * Side effects: none
+*/
+int Point_GetX(Point *point);
+
+/**
+ * Declaring the function that gets the y coordinate of the point:
+ * Input: pointer to the point
+ * Output: y coordinate of the point
+ * Conditions: existent and allocated point
+ * Side effects: none
+*/
+int Point_GetY(Point *point);
+
 #endif // POINT_H_
