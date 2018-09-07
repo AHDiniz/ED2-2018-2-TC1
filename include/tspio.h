@@ -11,6 +11,8 @@
 
 #include "../include/point.h"
 
-Point* TSPIO_ReadEntry(char* filename, char* name, int* dimension);
+int TSPIO_ReadEntry(char *filename, char *name, Point *p[]);
+
+void TSPIO_DestroyVector(Point *p[], int n);
 
 #endif

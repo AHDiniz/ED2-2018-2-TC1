@@ -13,10 +13,13 @@
 int main(int argc, char *argv[])
 {
     char name[20];
-    int* dimension;
-    Point* p;
+    int dimension;
+    Point **p;
 
-    p = TSPIO_ReadEntry(argv[1], name, dimension);
+    dimension = TSPIO_ReadEntry(argv[1], name, p);
+
+    printf("name = %s\n", name);
+    printf("dim = %d\n", dimension);
 
     return 0;
 }

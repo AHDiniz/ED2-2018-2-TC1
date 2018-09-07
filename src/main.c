@@ -7,7 +7,19 @@
 
 #include <stdio.h>
 
+#include "../include/tspio.h"
+#include "../include/point.h"
+
 int main(int argc, char *argv[])
 {
+    char name[20];
+    int dimension;
+    Point **p;
+
+    dimension = TSPIO_ReadEntry(argv[1], name, p);
+
+    
+
+    TSPIO_DestroyVector(p,dimension);
     return 0;
 }
