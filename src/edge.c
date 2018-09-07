@@ -11,7 +11,10 @@
 
 #include "../include/edge.h"
 
-// Difining the edge structure:
+// Declaring auxiliar function that calculate the euclidian distance between two cartesian points:
+int compute_dist(Point *i, Point *j);
+
+// Defining the edge structure:
 struct edge {
     int vertex1, vertex2;
     int dist;
@@ -35,6 +38,22 @@ void Edge_Destroy(void *edge)
     free(edge);
 }
 
+// Defining the function that prints a given edge:
+bool Edge_Print(void *edge, void *placeholder)
+{
+    Edge *e = (Edge*) edge;
+    printf("p1 = %d, p2 = %d, dist = %d\n", e->vertex1, e->vertex2, e->dist);
+    return false;
+}
+
+// Defining the function that compares two edges:
+int Edge_Compare(void *edgeA, void *edgeB)
+{
+    Edge *eA = (Edge*) edgeA;
+    Edge *eB = (Edge*) edgeB;
+    return eB->dist - eA->dist;
+}
+
 // Defining the function that gets the 1º vertex of the edge:
 int Edge_GetVertex_1(Edge *e)
 {
@@ -53,11 +72,11 @@ int Edge_GetDist(Edge *e)
     return e->dist;
 }
 
-// Defining auxiliar function that calculate the euclidian distance between two cartesian points
+// Defining auxiliar function that calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *i, Point *j)
 {
-    int xd = Point_GetX(i) - Point_GetX(j);
-    int yd = Point_GetY(i) - Point_GetY(j);
+    int xd = (int)(Point_GetX(i) - Point_GetX(j));
+    int yd = (int)(Point_GetY(i) - Point_GetY(j));
     
     return round(sqrt(xd*xd + yd*yd));
 }

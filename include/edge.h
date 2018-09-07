@@ -39,6 +39,24 @@ Edge *Edge_Create(int numVertex1, Point *vertex1, int numVertex2, Point *vertex2
 void Edge_Destroy(void *edge);
 
 /**
+ * Declaring the function that prints a given edge:
+ * Inputs: pointer to the edge and a NULL pointer (allows callback to the list destruction function)
+ * Output: false
+ * Conditions: existent and allocated edge and a NULL pointer
+ * Side effects: none
+*/
+bool Edge_Print(void *edge, void *placeholder);
+
+/**
+ * Declaring the function that compares two edges:
+ * Inputs: pointers to the edges
+ * Output: integer that is a) =0 if the edges are equal b) >0 if edgeB > edgeA c) <0 if edgeA > edgeB
+ * Coditions: existent and allocated edges
+ * Side effects: none
+*/
+int Edge_Compare(void *edgeA, void *edgeB);
+
+/**
  * Declaring the function that gets the 1º vertex of the edge:
  * Input: pointer to the edge
  * Output: 1º vertex of the edge
