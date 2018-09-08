@@ -122,6 +122,7 @@ List *List_Remove(List **list, void *content, List_Operation Compare)
         item->prev->next = item->next; // Making the previous item point to the current item's next
     if (item->next != NULL) // If the target item isn't the last item in the list
         item->next->prev = item->prev; // Making the next item point to the current item's previous
+    item->next = item->prev = NULL; // Making the return item point to no other item
     return item;
 }
 
