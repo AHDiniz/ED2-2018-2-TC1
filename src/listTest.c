@@ -18,51 +18,47 @@ int main(int argc, char *argv[])
     Point *p4 = Point_Create(4, 4);
     Point *p5 = Point_Create(5, 5);
 
-    // Creating a list to store the points:
+    // Creating the list:
     List *list = List_Create(p1);
-    List *item2 = List_Create(p2);
-    List *item3 = List_Create(p3);
-    List *item4 = List_Create(p4);
-    List *item5 = List_Create(p5);
-    List_Add(item2, list);
-    List_Add(item3, list);
-    List_Add(item4, list);
-    List_Add(item5, list);
+    list = List_Add(p2, list, NULL);
+    list = List_Add(p3, list, NULL);
+    list = List_Add(p4, list, NULL);
+    list = List_Add(p5, list, NULL);
 
     // Printing the list:
     List_RunThrough(list, Point_Print, NULL);
 
-    // Removing the top item and then destroying it:
+    // Removing the top item:
     List *item = List_Remove(list, p1, Point_Compare);
-    printf("Removed top point: ");
-    Point_Print(List_Content(item), NULL);
+    p1 = List_Content(item);
+    printf("Removed item: ");
+    Point_Print(p1, NULL);
     List_Destroy(item, Point_Destroy);
 
     // Printing the list:
-    printf("\nCurrent list state:\n");
     List_RunThrough(list, Point_Print, NULL);
 
-    // Removing a middle item and then destroying it:
-    item3 = List_Remove(list, p3, Point_Compare);
-    printf("Removed middle point: ");
-    Point_Print(List_Content(item3), NULL);
-    List_Destroy(item3, Point_Destroy);
+    // Removing the second item in the current list:
+    item = List_Remove(list, p3, Point_Compare);
+    p3 = List_Content(item);
+    printf("Removed item: ");
+    Point_Print(p3, NULL);
+    List_Destroy(item, Point_Destroy);
 
     // Printing the list:
-    printf("\nCurrent list state:\n");
     List_RunThrough(list, Point_Print, NULL);
 
-    // Removing the bottom item and then destroying it:
-    item5 = List_Remove(list, p5, Point_Compare);
-    printf("Removed bottom point: ");
-    Point_Print(List_Content(item5), NULL);
-    List_Destroy(item5, Point_Destroy);
+    // Removing the last item:
+    item = List_Remove(list, p5, Point_Compare);
+    p5 = List_Content(item);
+    printf("Removed item: ");
+    Point_Print(p5, NULL);
+    List_Destroy(item, Point_Destroy);
 
     // Printing the list:
-    printf("\nCurrent list state:\n");
     List_RunThrough(list, Point_Print, NULL);
 
-    // Destroying the list and it's items:
+    // Destroying the list:
     List_Destroy(list, Point_Destroy);
 
     return 0;

@@ -34,6 +34,14 @@ typedef void (*List_DestroyContent) (void *);
 typedef bool (*List_Operation) (void *, void *);
 
 /**
+ * Declaring a type that's a callback to a function that compares two data and tells if the first is less then,
+ * equal to or bigger then the second:
+ * Inputs: pointers to the data to be compared
+ * Output: -1 if the 1st is less then the 2nd, 0 if they are equal and 1 if the 1st is bigger then the 2nd
+*/
+typedef int (*List_Compare) (void *, void *);
+
+/**
  * Declaring the function that allocates the space for a new list item:
  * Inputs: pointer to content, pointer to next and previous items of the list
  * Output: pointer to dynamically allocated list item structure
@@ -70,13 +78,22 @@ int List_Length(List *list);
 bool List_IsEmpty(List *list);
 
 /**
- * Declaring the function thar adds an item to the list in the end of the list:
- * Inputs: pointers to the item and to the list
- * Output: bool that tells the success of the operation
+ * Declaring the function thar adds a content to the list in the end of the list:
+ * Inputs: pointers to the item's content and to the list
+ * Output: the new list
  * Conditions: existent and allocated item and list
  * Side effects: the item is added to the end of list
 */
-bool List_Add(List *item, List *list);
+List *List_Add(void *item, List *list, List_Compare Compare);
+
+/**
+ * Declaring the function that searches an item given it's content and the list:
+ * Inputs: the pointer to the item's content, the pointer to the list and a function to compare the contents
+ * Output: the pointer to the item
+ * Conditions: existent and allocated content, list and function
+ * Side effects: none
+*/
+List *List_Search(List *list, void *item, List_Operation Compare);
 
 /**
  * Declaring the function that removes an item that has a certain content from the list:
