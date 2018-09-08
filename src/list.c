@@ -67,35 +67,22 @@ List *List_Add(void *item, List *list, List_Compare Compare)
         list->prev = new;
         return new;
     }
-    // If there's only one item in the list:
-    if (list->next == NULL)
-    {
-        // The comparision will be made and, if the item is smaller then the top, it becomes the top:
-        if (Compare(item, list->content) <= 0)
-        {
-            List *new = List_Create(item);
-            new->next = list;
-            list->prev = new;
-            return new;
-        }
-        else // If the item is bigger, then it's added to the end of the list:
-        {
-            List *new = List_Create(item);
-            list->next = new;
-            new->prev = list;
-            return list;
-        }
-    }
-    // If there are multiple items in the list:
-    for (List *current = list->next; current != NULL; current = current->next)
+    for (List *current = list; current != NULL; current = current->next)
     {
         if (Compare(item, current->content) == -1) // If the item is smaller then the current one, it will be added to the list:
         {
             List *new = List_Create(item);
             new->next = current;
             new->prev = current->prev;
-            if (current->prev->next != NULL)
+            if (current->prev != NULL)
+            {
                 current->prev->next = new;
+            }
+            else
+            {
+                current->prev = new;
+                return new;
+            }
             current->prev = new;
             return list;
         }
