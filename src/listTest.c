@@ -28,8 +28,13 @@ int main(int argc, char *argv[])
     // Printing the list:
     List_RunThrough(list, Point_Print, NULL);
 
+    // Finding an item in the list:
+    List *item = List_Search(list, p4, Point_Compare);
+    printf("Desired point: ");
+    Point_Print(List_Content(item), NULL);
+
     // Removing the top item:
-    List *item = List_Remove(list, p1, Point_Compare);
+    item = List_Remove(&list, p1, Point_Compare);
     p1 = List_Content(item);
     printf("Removed item: ");
     Point_Print(p1, NULL);
@@ -39,7 +44,7 @@ int main(int argc, char *argv[])
     List_RunThrough(list, Point_Print, NULL);
 
     // Removing the second item in the current list:
-    item = List_Remove(list, p3, Point_Compare);
+    item = List_Remove(&list, p3, Point_Compare);
     p3 = List_Content(item);
     printf("Removed item: ");
     Point_Print(p3, NULL);
@@ -49,7 +54,7 @@ int main(int argc, char *argv[])
     List_RunThrough(list, Point_Print, NULL);
 
     // Removing the last item:
-    item = List_Remove(list, p5, Point_Compare);
+    item = List_Remove(&list, p5, Point_Compare);
     p5 = List_Content(item);
     printf("Removed item: ");
     Point_Print(p5, NULL);

@@ -97,12 +97,12 @@ List *List_Search(List *list, void *item, List_Operation Compare);
 
 /**
  * Declaring the function that removes an item that has a certain content from the list:
- * Inputs: pointer to the list, the content of the target item and and comparision operation (true if equal, false if not)
+ * Inputs: pointer to the list's pointer, the content of the target item and and comparision operation (true if equal, false if not)
  * Output: pointer to the removed item
  * Conditions: existent and allocated list, valid content and function
  * Side effects: the target item won't be in the list anymore, and the first one found will be returned
 */
-List *List_Remove(List *list, void *content, List_Operation Compare);
+List *List_Remove(List **list, void *content, List_Operation Compare);
 
 /**
  * Declaring the function that destroys a list and it's items:
