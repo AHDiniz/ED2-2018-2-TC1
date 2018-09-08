@@ -40,12 +40,21 @@ void Edge_Destroy(void *edge);
 
 /**
  * Declaring the function that prints a given edge:
- * Inputs: pointer to the edge and a NULL pointer (allows callback to the list destruction function)
+ * Inputs: pointer to the edge and a NULL pointer (allows callback to the list RunThrough function)
  * Output: false
- * Conditions: existent and allocated edge and a NULL pointer
+ * Conditions: existent and allocated edge
  * Side effects: none
 */
 bool Edge_Print(void *edge, void *placeholder);
+
+/**
+ * Declaring the function that prints a given edge on a given file:
+ * Inputs: pointer to the edge and a FILE pointer (allows callback to the list RunThrough function)
+ * Output: false
+ * Conditions: existent and allocated edge and FILE enable to whrite
+ * Side effects: none
+*/
+bool Edge_PrintFile(void *edge, void *file);
 
 /**
  * Declaring the function that compares two edges:

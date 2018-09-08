@@ -46,6 +46,16 @@ bool Edge_Print(void *edge, void *placeholder)
     return false;
 }
 
+
+// Defining the function that prints a given edge on a given file:
+bool Edge_PrintFile(void *edge, void *file)
+{
+    Edge *e = (Edge*) edge;
+    FILE *out = (FILE*) file;
+    fprintf(out, "%d %d\n", e->vertex1, e->vertex2);
+    return false;
+}
+
 // Defining the function that compares two edges:
 int Edge_Compare(void *edgeA, void *edgeB)
 {

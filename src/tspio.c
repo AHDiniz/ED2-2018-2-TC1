@@ -11,6 +11,7 @@
 #include <stdbool.h>
 
 #include "../include/tspio.h"
+#include "../include/edge.h"
 
 // Defining the function that reads the input file:
 Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension)
@@ -101,4 +102,44 @@ void TSPIO_DestroyArrey(Point **p, int n)
         Point_Destroy(p[i]);
     }
     free(p);
+}
+
+// Defining the function that prints the MST file:
+void TSPIO_PrintMST(List *edges, char *name, int dimension)
+{
+    // Starting the file's name as <name>.mst
+    char *fileName = malloc(strlen(name)+5);
+    strcpy(fileName,name);
+    strcat(fileName,".mst");
+
+    FILE *out = fopen(fileName,"w"); // criating output file
+
+    // Printing header and edges
+    fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
+    List_RunThrough(edges,Edge_PrintFile,out);
+    fprintf(out, "EOF");
+
+    // Closing file and destroing filename
+    fclose(out);
+    free(fileName);
+}
+
+// Defining the function that prints the tour file:
+void TSPIO_PrintTour(List *vertices, char *name, int dimension)
+{
+    // Starting the file's name as <name>.tour
+    char *fileName = malloc(strlen(name)+6);
+    strcpy(fileName,name);
+    strcat(fileName,".tour");
+
+    FILE *out = fopen(fileName,"w");
+
+    // Printing header and tour
+    fprintf(out, "NAME: %s\nTYPE: TOUR\nDIMENSION: %d\nTOUR_SECTION\n", name, dimension);
+    List_RunThrough(vertices,free,out);
+    fprintf(out, "EOF");
+
+    // Closing file and destroing filename
+    fclose(out);
+    free(fileName);
 }
