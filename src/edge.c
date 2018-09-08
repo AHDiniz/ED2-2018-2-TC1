@@ -51,7 +51,7 @@ int Edge_Compare(void *edgeA, void *edgeB)
 {
     Edge *eA = (Edge*) edgeA;
     Edge *eB = (Edge*) edgeB;
-    return eB->dist - eA->dist;
+    return eA->dist - eB->dist;
 }
 
 // Defining the function that gets the 1º vertex of the edge:

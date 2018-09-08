@@ -50,7 +50,7 @@ bool Edge_Print(void *edge, void *placeholder);
 /**
  * Declaring the function that compares two edges:
  * Inputs: pointers to the edges
- * Output: integer that is a) =0 if the edges are equal b) >0 if edgeB > edgeA c) <0 if edgeA > edgeB
+ * Output: integer that is a) =0 if the edges are equal b) >0 if edgeA > edgeB c) <0 if edgeA < edgeB
  * Coditions: existent and allocated edges
  * Side effects: none
 */
