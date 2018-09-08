@@ -41,11 +41,11 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension);
 
 /**
  * Declaring the function that prints the tour file:
- * Inputs: pointer to the list of vertices(integers), the problem's name and the problem's dimension
+ * Inputs: array of vertices(integers), the problem's name and the problem's dimension
  * Outputs: none
- * Conditions: list allocated, existent name and dimension
+ * Conditions: all inputs exist
  * Side effects: none
 */
-void TSPIO_PrintTour(List *vetices, char *name, int dimension);
+void TSPIO_PrintTour(int *vetices, char *name, int dimension);
 
 #endif

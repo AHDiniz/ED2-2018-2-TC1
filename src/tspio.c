@@ -117,8 +117,9 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension)
     // Opening output file
     FILE *out = fopen(fileName,"w"); // criating output file
 
-    // Printing header and edges
+    // Printing header
     fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
+    // Printing edges
     List_RunThrough(edges,Edge_PrintFile,out);
     fprintf(out, "EOF");
 
@@ -128,8 +129,10 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension)
 }
 
 // Defining the function that prints the tour file:
-void TSPIO_PrintTour(List *vertices, char *name, int dimension)
+void TSPIO_PrintTour(int *vertices, char *name, int dimension)
 {
+    int i;
+
     // Starting the file's name as <name>.tour
     char *fileName = malloc(strlen(name)+6);
     strcpy(fileName,name);
@@ -138,9 +141,13 @@ void TSPIO_PrintTour(List *vertices, char *name, int dimension)
     // Opening output file
     FILE *out = fopen(fileName,"w");
 
-    // Printing header and tour
+    // Printing header
     fprintf(out, "NAME: %s\nTYPE: TOUR\nDIMENSION: %d\nTOUR_SECTION\n", name, dimension);
-    List_RunThrough(vertices,free,out);
+    // Printing tour
+    for(i = 0 ; i < dimension ; i++)
+    {
+        fprintf(out, "%d\n", vertices[i]);
+    }
     fprintf(out, "EOF");
 
     // Closing file and destroing filename
