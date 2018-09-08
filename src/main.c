@@ -12,34 +12,45 @@
 #include "../include/list.h"
 #include "../include/edge.h"
 
+/** Function that build a list with all edges between two points:
+ * Inputs: array with all points and problem's dimension
+ * Outputs: list with all edges between two points
+*/
 List *BuildEdgesList(Point **p, int dimension);
 
 int main(int argc, char *argv[])
 {
-    char name[20];
-    int dimension, i;
-    Point **p;
-    List *edgesList;
+    int i;          // incrementation variable
+    char name[20];  // problem's name
+    int dimension;  // problem's dimension
+    Point **p;      // array of pointers to Point struct
+    List *edges;    // List of the edges (graph representation)
 
+    // Reading input file, geting name, dimension and building a array with all points coordinates
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
-    edgesList = BuildEdgesList(p, dimension);
+    // Building a list with all edges between two points
+    edges = BuildEdgesList(p, dimension);
 
-    List_RunThrough(edgesList,Edge_Print,NULL);
+    //List_RunThrough(edges,Edge_Print,NULL);
 
     
 
-    List_Destroy(edgesList,Edge_Destroy);
+    // Destroing the utilized structures
+    List_Destroy(edges,Edge_Destroy);
     TSPIO_DestroyArrey(p,dimension);
+
     return 0;
 }
 
+// Function that build a list with all edges between two points:
 List *BuildEdgesList(Point **p, int dimension)
 {
-    int i, j;
+    int i, j; // incrementation variables
+    Edge *e;  // auxiliar variable
     List *l;
-    Edge *e;
 
+    // building a edge between each point in the array
     for(i = 0 ; i < dimension ; i++) {
         for(j = i+1 ; j < dimension ; j++) {
             e = Edge_Create(i+1,p[i],j+1,p[j]);
