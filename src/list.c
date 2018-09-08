@@ -130,11 +130,11 @@ List *List_Remove(List *list, void *content, List_Operation Compare)
     List *item = List_Search(list, content, Compare);
     if (item == NULL) return item; // If the item is not in the list or the input are not valid, the function returns NULL
     if (Compare(content, list->content)) // If the target item is the top of the list:
-        list = item->next; // The list will point to the second item in it
+        list = list->next; // The list will point to the second item in it
     else
         item->prev->next = item->next; // Making the previous item point to the current item's next
     if (item->next != NULL) // If the target item isn't the last item in the list
-        item->next->prev = item->prev; // MAking the next item point to the current item's previous
+        item->next->prev = item->prev; // Making the next item point to the current item's previous
     return item;
 }
 
