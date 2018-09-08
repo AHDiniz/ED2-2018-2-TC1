@@ -31,7 +31,6 @@ Edge *Edge_Create(int numVertex1, Point *vertex1, int numVertex2, Point *vertex2
     return e;
 }
 
-
 // Defining the function that destroys a given edge:
 void Edge_Destroy(void *edge)
 {
