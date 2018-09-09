@@ -151,9 +151,11 @@ bool List_RunThrough(List *list, List_Operation Operation, void *data)
     if (list == NULL || Operation == NULL)
         return false;
     List *current = list;
+    List *target;
     while (current != NULL) {
+        target = current;
         current = current->next;
-        if (Operation(current->content, data))
+        if (Operation(target->content, data))
             return true;
     }
     return false;

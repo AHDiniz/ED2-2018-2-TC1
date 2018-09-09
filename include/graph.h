@@ -22,12 +22,12 @@ typedef struct graph Graph;
 
 /**
  * Declaring the function that allocates the space for a new graph:
- * Inputs: pointer to edges list and points array
+ * Inputs: pointer to edges list, pointer to the points array and the dimension of the array
  * Output: pointer to dynamically allocated graph structure
  * Conditions: existent and allocated list and array
  * Side effects: graph DYNAMICALLY allocated, remember to destroy it later
 */
-Graph *Graph_Create(List **edges, Point **points);
+Graph *Graph_Create(List **edges, Point **points, int dimension);
 
 /**
  * Declaring the function that gets the graph's edges list:

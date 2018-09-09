@@ -13,15 +13,17 @@
 struct graph{
     List **edges;
     Point **points;
+    int dimension;
 };
 
 
 // Defining the function that allocates the space for a new graph:
-Graph *Graph_Create(List **edges, Point **points)
+Graph *Graph_Create(List **edges, Point **points, int dimension)
 {
     Graph *g = malloc(sizeof(Graph));
     g->edges = edges;
     g->points = points;
+    g->dimension = dimension;
     return g;
 }
 
@@ -68,14 +70,13 @@ bool Graph_MSTBuilder(void *edge,void *graph)
     int nB = Edge_GetNode_2(e); // getting the 2º edge's node
 
     // If both nodes of the edge are already marked they already belong to the tree, so this edge is removed from the list
-    if(Point_IsMarked(g->points[nA-1]) && Point_IsMarked(g->points[nB-1])) {
+    if(Point_GetGroup(g->points[nA-1]) == Point_GetGroup(g->points[nB-1])) {
         List *l = List_Remove(g->edges,edge,Edge_Compare);
         List_Destroy(l,Edge_Destroy); // freeing the removed edge
         return false;
     }
 
     // else, Marking both nodes (including them in the MST)
-    Point_Mark(g->points[nA-1]);
-    Point_Mark(g->points[nB-1]);
+    Point_Agroup(g->points, g->dimension, g->points[nA-1],g->points[nB-1]);
     return false;
 }

@@ -13,16 +13,16 @@
 struct point
 {
     float x, y; // Cartesian coordinates of the point
-    bool isMarked;
+    int group;  // group the point belongs
 };
 
 // Defining the function that creates a new point:
-Point *Point_Create(float x, float y)
+Point *Point_Create(int num, float x, float y)
 {
     Point *p = malloc(sizeof(*p));
     p->x = x;
     p->y = y;
-    p->isMarked = false;
+    p->group = num;
     return p;
 }
 
@@ -48,16 +48,22 @@ bool Point_Compare(void *pointA, void *pointB)
     return a->x == b->x && a->y == b->y;
 }
 
-// Defining the function that marks a point:
-void Point_Mark(Point *point)
+// Defining the function that agroup two given points in a given point array:
+void Point_Agroup(Point **points,int dimension, Point *pointA, Point *pointB)
 {
-    point->isMarked = true;
+    int Ag = pointA->group;
+    int Bg = pointB->group;
+    for(int i = 0 ; i < dimension ; i++) {
+        if(points[i]->group == Bg) {
+            points[i]->group = Ag;
+        }
+    }
 }
 
-// Defining the function that checks if a point is marked:
-bool Point_IsMarked(Point *point)
+// Defining the function that returns the group of a given point:
+int Point_GetGroup(Point *point)
 {
-    return point->isMarked;
+    return point->group;
 }
 
 // Defining the function that returns the x coordinate of the point:

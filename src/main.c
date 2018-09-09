@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     // Building a list with all edges between two points
     edges = Graph_BuildEdgesList(p, dimension);
 
-    g = Graph_Create(&edges,p);
+    g = Graph_Create(&edges,p,dimension);
 
     List_RunThrough(edges,Graph_MSTBuilder,g);
 

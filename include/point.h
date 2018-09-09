@@ -15,17 +15,18 @@
  * Creating a new point type based on a struct containing:
  * float x: horizontal coordinate of the point
  * float y: vertical coordinate of the point
+ * int group: representative of conected points
 */
 typedef struct point Point;
 
 /**
  * Declaring the function that allocates and returns a new point:
- * Inputs: the coordinates of the point
+ * Inputs: the coordinates of the point and the point identification number
  * Output: the pointer to the point structure
  * Conditions: none
  * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later!!!
 */
-Point *Point_Create(float x, float y);
+Point *Point_Create(int num, float x, float y);
 
 /**
  * Declaring the function that destroys a given point:
@@ -55,22 +56,22 @@ bool Point_Print(void *point, void *placeholder);
 bool Point_Compare(void *pointA, void *pointB);
 
 /**
- * Declaring the function that marks a given point:
- * Input: pointer to the point
+ * Declaring the function that agroup two given points in a given point array:
+ * Input: pointer to the point array, dimension of the array and pointers to the points
  * Output: none
- * Conditions: existent and allocated point
- * Side effects: the point is marked
+ * Conditions: existent and allocated points and array
+ * Side effects: all points of group B bacome group A
 */
-void Point_Mark(Point* point);
+void Point_Agroup(Point **points,int dimension, Point *pointA, Point *pointB);
 
 /**
- * Declaring the function that returns if a point is or isn't marked:
+ * Declaring the function that returns the group of a given point:
  * Input: pointer to the point
- * Output: boolean that tells if the point is or isn't marked
+ * Output: number of the group representative
  * Conditions: existent and allocated point
  * Side effects: none
 */
-bool Point_IsMarked(Point* point);
+int Point_GetGroup(Point *point);
 
 /**
  * Declaring the function that gets the x coordinate of the point:
