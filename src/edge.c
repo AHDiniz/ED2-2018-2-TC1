@@ -92,8 +92,8 @@ int Edge_GetWeight(Edge *e)
 // Defining auxiliar function that calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *i, Point *j)
 {
-    int xd = Point_GetX(i) - Point_GetX(j);
-    int yd = Point_GetY(i) - Point_GetY(j);
+    float xd = Point_GetX(i) - Point_GetX(j);
+    float yd = Point_GetY(i) - Point_GetY(j);
     
     return round(sqrt(xd*xd + yd*yd));
 }

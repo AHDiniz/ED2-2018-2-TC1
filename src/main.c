@@ -22,22 +22,22 @@ int main(int argc, char *argv[])
     // Reading input file, geting name, dimension and building a array with all points coordinates
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
-    //printf("name = %s\ndim = %d\n\n", name, dimension);
+    printf("name = %s\ndim = %d\n\n", name, dimension);
 
     // Building a list with all edges between two points
-    edges = Graph_BuildEdgesList(p, dimension);
+    //edges = Graph_BuildEdgesList(p, dimension);
 
-    g = Graph_Create(&edges,p,dimension);
+    //g = Graph_Create(&edges,p,dimension);
 
-    List_RunThrough(edges,Graph_MSTBuilder,g);
+    //List_RunThrough(edges,Graph_MSTBuilder,g);
 
-    List_RunThrough(edges,Edge_Print,NULL);
-    printf("\nlenght = %d\n", List_Length(edges));
+    //List_RunThrough(edges,Edge_Print,NULL);
+    //printf("\nlenght = %d\n", List_Length(edges));
 
     // Destroing the utilized structures
-    List_Destroy(edges,Edge_Destroy);
+    //List_Destroy(edges,Edge_Destroy);
     TSPIO_DestroyArrey(p,dimension);
-    Graph_Destroy(g);
+    //Graph_Destroy(g);
 
     return 0;
 }

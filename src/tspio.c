@@ -86,6 +86,7 @@ Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension)
     {
         fscanf(in,"%*s %f %f\n", &x, &y);
         p[i] = Point_Create(i+1,x,y);
+        Point_Print(p[i],NULL);
     }
 
     fclose(in); // closing the file
