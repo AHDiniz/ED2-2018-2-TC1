@@ -69,7 +69,7 @@ List *List_Add(void *item, List *list, List_Compare Compare)
     }
     for (List *current = list; current != NULL; current = current->next)
     {
-        if (Compare(item, current->content) == -1) // If the item is smaller then the current one, it will be added to the list:
+        if (Compare(item, current->content) < 0) // If the item is smaller then the current one, it will be added to the list:
         {
             List *new = List_Create(item);
             new->next = current;

@@ -14,9 +14,9 @@
 
 /**
  * Declaring a new edge type based on a struct containing:
- * int vertex1 => number of one vertex;
- * int vertex2 => number of the other vertex;
- * int dist => euclidian distance between both;
+ * int node1 => number of one node;
+ * int node2 => number of the other node;
+ * int weight => euclidian distance between both;
 */
 typedef struct edge Edge;
 
@@ -27,7 +27,7 @@ typedef struct edge Edge;
  * Conditions: none
  * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later
 */
-Edge *Edge_Create(int numVertex1, Point *vertex1, int numVertex2, Point *vertex2);
+Edge *Edge_Create(int numVertex1, Point *node1, int numVertex2, Point *node2);
 
 /**
  * Declaring the function that destroys a given edge:
@@ -57,39 +57,48 @@ bool Edge_Print(void *edge, void *placeholder);
 bool Edge_PrintFile(void *edge, void *file);
 
 /**
- * Declaring the function that compares two edges:
+ * Declaring the function that compares two edges's weights:
  * Inputs: pointers to the edges
- * Output: integer that is a) =0 if the edges are equal b) >0 if edgeA > edgeB c) <0 if edgeA < edgeB
+ * Output: integer that is a) =0 if the weights are equal b) >0 if A's weight > B's weight c) <0 if A's weight < B's weight
  * Coditions: existent and allocated edges
  * Side effects: none
 */
-int Edge_Compare(void *edgeA, void *edgeB);
+int Edge_CompareWeight(void *edgeA, void *edgeB);
 
 /**
- * Declaring the function that gets the 1º vertex of the edge:
+ * Declaring the function that compares two edges:
+ * Inputs: pointers to the edges
+ * Output: boolean that tells if the edges are equal
+ * Coditions: existent and allocated edges
+ * Side effects: none
+*/
+bool Edge_Compare(void *edgeA, void *edgeB);
+
+/**
+ * Declaring the function that gets the 1º node of the edge:
  * Input: pointer to the edge
- * Output: 1º vertex of the edge
+ * Output: 1º node of the edge
  * Conditions: existent and allocated edge
  * Side effects: none
 */
 int Edge_GetVertex_1(Edge *e);
 
 /**
- * Declaring the function that gets the 2º vertex of the edge:
+ * Declaring the function that gets the 2º node of the edge:
  * Input: pointer to the edge
- * Output: 2º vertex of the edge
+ * Output: 2º node of the edge
  * Conditions: existent and allocated edge
  * Side effects: none
 */
 int Edge_GetVertex_2(Edge *e);
 
 /**
- * Declaring the function that gets the euclidian distance of the edge:
+ * Declaring the function that gets the weight of the edge:
  * Input: pointer to the edge
- * Output: euclidian distance of the edge
+ * Output: weight of the edge
  * Conditions: existent and allocated edge
  * Side effects: none
 */
-int Edge_GetDist(Edge *e);
+int Edge_GetWeight(Edge *e);
 
 #endif

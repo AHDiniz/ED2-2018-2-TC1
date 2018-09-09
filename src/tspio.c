@@ -110,9 +110,11 @@ void TSPIO_DestroyArrey(Point **p, int n)
 void TSPIO_PrintMST(List *edges, char *name, int dimension)
 {
     // Starting the file's name as <name>.mst
-    char *fileName = malloc(strlen(name)+5);
+    char *fileName = malloc(strlen(name)+17);
     strcpy(fileName,name);
     strcat(fileName,".mst");
+    // Including relative datapath
+    strcat("../out/mst/",fileName);
 
     // Opening output file
     FILE *out = fopen(fileName,"w"); // criating output file
@@ -129,14 +131,16 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension)
 }
 
 // Defining the function that prints the tour file:
-void TSPIO_PrintTour(int *vertices, char *name, int dimension)
+void TSPIO_PrintTour(int *nodes, char *name, int dimension)
 {
     int i;
 
     // Starting the file's name as <name>.tour
-    char *fileName = malloc(strlen(name)+6);
+    char *fileName = malloc(strlen(name)+19);
     strcpy(fileName,name);
     strcat(fileName,".tour");
+    // Including relative datapath
+    strcat("../out/tour/",fileName);
 
     // Opening output file
     FILE *out = fopen(fileName,"w");
@@ -146,7 +150,7 @@ void TSPIO_PrintTour(int *vertices, char *name, int dimension)
     // Printing tour
     for(i = 0 ; i < dimension ; i++)
     {
-        fprintf(out, "%d\n", vertices[i]);
+        fprintf(out, "%d\n", nodes[i]);
     }
     fprintf(out, "EOF");
 

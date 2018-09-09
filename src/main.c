@@ -29,12 +29,14 @@ int main(int argc, char *argv[])
     // Reading input file, geting name, dimension and building a array with all points coordinates
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
+    printf("name = %s\ndim = %d\n\n", name, dimension);
+
     // Building a list with all edges between two points
     edges = BuildEdgesList(p, dimension);
 
-    //List_RunThrough(edges,Edge_Print,NULL);
+    List_RunThrough(edges,Edge_Print,NULL);
 
-    
+    printf("\nlenght = %d\n", List_Length(edges));
 
     // Destroing the utilized structures
     List_Destroy(edges,Edge_Destroy);
@@ -58,7 +60,7 @@ List *BuildEdgesList(Point **p, int dimension)
                 l = List_Create(e);
             }
             else {
-                List_Add(List_Create(e),l);
+                l = List_Add(e,l,Edge_CompareWeight);
             }
         }
     }
