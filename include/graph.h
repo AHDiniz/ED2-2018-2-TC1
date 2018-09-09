@@ -30,6 +30,15 @@ typedef struct graph Graph;
 Graph *Graph_Create(List **edges, Point **points, int dimension);
 
 /**
+ * Declaring the function that destroys a graph structure:
+ * Inputs: pointer to the graph
+ * Outputs: none
+ * Conditions: existent and allocated graph, edges and points previously destroyed
+ * Side effects: graph is destroyed and the entry pointer points to NULL
+*/
+void Graph_Destroy(void *graph);
+
+/**
  * Declaring the function that gets the graph's edges list:
  * Input: pointer to the graph
  * Output: graph's edges list

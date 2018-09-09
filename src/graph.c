@@ -27,6 +27,12 @@ Graph *Graph_Create(List **edges, Point **points, int dimension)
     return g;
 }
 
+// Defining the function that destroys a graph structure:
+void Graph_Destroy(void *graph)
+{
+    free(graph);
+}
+
 // Defining the function that gets the graph's edges list:
 List **Graph_GetEdges(Graph *graph)
 {

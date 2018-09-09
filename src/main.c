@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
     // Destroing the utilized structures
     List_Destroy(edges,Edge_Destroy);
     TSPIO_DestroyArrey(p,dimension);
+    Graph_Destroy(g);
 
     return 0;
 }
