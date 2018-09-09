@@ -150,8 +150,11 @@ bool List_RunThrough(List *list, List_Operation Operation, void *data)
 {
     if (list == NULL || Operation == NULL)
         return false;
-    for (List *current = list; current != NULL; current = current->next)
+    List *current = list;
+    while (current != NULL) {
+        current = current->next;
         if (Operation(current->content, data))
             return true;
+    }
     return false;
 }

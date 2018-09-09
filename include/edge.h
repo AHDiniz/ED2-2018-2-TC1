@@ -27,7 +27,7 @@ typedef struct edge Edge;
  * Conditions: none
  * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later
 */
-Edge *Edge_Create(int numVertex1, Point *node1, int numVertex2, Point *node2);
+Edge *Edge_Create(int numNode1, Point *node1, int numNode2, Point *node2);
 
 /**
  * Declaring the function that destroys a given edge:
@@ -81,7 +81,7 @@ bool Edge_Compare(void *edgeA, void *edgeB);
  * Conditions: existent and allocated edge
  * Side effects: none
 */
-int Edge_GetVertex_1(Edge *e);
+int Edge_GetNode_1(Edge *e);
 
 /**
  * Declaring the function that gets the 2º node of the edge:
@@ -90,7 +90,7 @@ int Edge_GetVertex_1(Edge *e);
  * Conditions: existent and allocated edge
  * Side effects: none
 */
-int Edge_GetVertex_2(Edge *e);
+int Edge_GetNode_2(Edge *e);
 
 /**
  * Declaring the function that gets the weight of the edge:

@@ -21,11 +21,11 @@ struct edge {
 };
 
 // Defining the function that allocates and returns a new edge:
-Edge *Edge_Create(int numVertex1, Point *node1, int numVertex2, Point *node2)
+Edge *Edge_Create(int numNode1, Point *node1, int numNode2, Point *node2)
 {
     Edge *e = malloc(sizeof(Edge));
-    e->node1 = numVertex1;
-    e->node2 = numVertex2;
+    e->node1 = numNode1;
+    e->node2 = numNode2;
     e->weight = compute_dist(node1,node2);
 
     return e;
@@ -72,13 +72,13 @@ bool Edge_Compare(void *edgeA, void *edgeB)
 }
 
 // Defining the function that gets the 1º node of the edge:
-int Edge_GetVertex_1(Edge *e)
+int Edge_GetNode_1(Edge *e)
 {
     return e->node1;
 }
 
 // Defining the function that gets the 2º node of the edge:
-int Edge_GetVertex_2(Edge *e)
+int Edge_GetNode_2(Edge *e)
 {
     return e->node2;
 }
