@@ -13,8 +13,8 @@
 
 /**
  * Creating a new point type based on a struct containing:
- * int x: horizontal coordinate of the point
- * int y: vertical coordinate of the point
+ * float x: horizontal coordinate of the point
+ * float y: vertical coordinate of the point
  * int group: representative of conected points
 */
 typedef struct point Point;
@@ -26,7 +26,7 @@ typedef struct point Point;
  * Conditions: none
  * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later!!!
 */
-Point *Point_Create(int num, int x, int y);
+Point *Point_Create(int num, float x, float y);
 
 /**
  * Declaring the function that destroys a given point:
@@ -80,7 +80,7 @@ int Point_GetGroup(Point *point);
  * Conditions: existent and allocated point
  * Side effects: none
 */
-int Point_GetX(Point *point);
+float Point_GetX(Point *point);
 
 /**
  * Declaring the function that gets the y coordinate of the point:
@@ -89,6 +89,6 @@ int Point_GetX(Point *point);
  * Conditions: existent and allocated point
  * Side effects: none
 */
-int Point_GetY(Point *point);
+float Point_GetY(Point *point);
 
 #endif // POINT_H_
