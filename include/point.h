@@ -17,25 +17,10 @@
  * float y: vertical coordinate of the point
  * int group: representative of conected points
 */
-typedef struct point Point;
-
-/**
- * Declaring the function that allocates and returns a new point:
- * Inputs: the coordinates of the point and the point identification number
- * Output: the pointer to the point structure
- * Conditions: none
- * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later!!!
-*/
-Point *Point_Create(int num, float x, float y);
-
-/**
- * Declaring the function that destroys a given point:
- * Input: pointer to the point
- * Output: none
- * Conditions: existent and allocated point
- * Side effects: the pointer will point to NULL
-*/
-void Point_Destroy(void *point);
+typedef struct {
+    float x, y; // Cartesian coordinates of the point
+    int group;  // group the point belongs
+} Point;
 
 /**
  * Declaring the function that prints a given point:
@@ -62,33 +47,6 @@ bool Point_Compare(void *pointA, void *pointB);
  * Conditions: existent and allocated points and array
  * Side effects: all points of group B bacome group A
 */
-void Point_Agroup(Point **points,int dimension, Point *pointA, Point *pointB);
-
-/**
- * Declaring the function that returns the group of a given point:
- * Input: pointer to the point
- * Output: number of the group representative
- * Conditions: existent and allocated point
- * Side effects: none
-*/
-int Point_GetGroup(Point *point);
-
-/**
- * Declaring the function that gets the x coordinate of the point:
- * Input: pointer to the point
- * Output: x coordinate of the point
- * Conditions: existent and allocated point
- * Side effects: none
-*/
-float Point_GetX(Point *point);
-
-/**
- * Declaring the function that gets the y coordinate of the point:
- * Input: pointer to the point
- * Output: y coordinate of the point
- * Conditions: existent and allocated point
- * Side effects: none
-*/
-float Point_GetY(Point *point);
+void Point_Agroup(Point *points,int dimension, Point *pointA, Point *pointB);
 
 #endif // POINT_H_

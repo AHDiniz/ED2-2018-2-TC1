@@ -10,7 +10,7 @@
 #define MSTIO_H_
 
 #include "../include/point.h"
-#include "../include/list.h"
+//#include "../include/list.h"
 
 /**
  * Declaring the function that reads the input file:
@@ -19,16 +19,7 @@
  * Conditions: string allocated, file of type TSP
  * Side effects: the array is dynamically alocated, name receive the problem's name and dimension receive the problem's dimension
 */
-Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension);
-
-/**
- * Declaring the function that destroy the array criated in TSPIO_ReadEntry:
- * Inputs: pointer to the array and it's size
- * Outputs: none
- * Conditions: array exist
- * Side effects: array is destroied
-*/
-void TSPIO_DestroyArrey(Point **p, int n);
+Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension);
 
 /**
  * Declaring the function that prints the MST file:
@@ -37,7 +28,7 @@ void TSPIO_DestroyArrey(Point **p, int n);
  * Conditions: list allocated, existent name and dimension
  * Side effects: none
 */
-void TSPIO_PrintMST(List *edges, char *name, int dimension);
+void TSPIO_PrintMST(Edge *edges, char *name, int dimension);
 
 /**
  * Declaring the function that prints the tour file:

@@ -18,25 +18,10 @@
  * int node2 => number of the other node;
  * int weight => euclidian distance between both;
 */
-typedef struct edge Edge;
-
-/**
- * Declaring the function that allocates and returns a new edge:
- * Inputs: the points to be conected and ther number
- * Output: the pointer to the edge structure
- * Conditions: none
- * Side effects: the structure is DYNAMICALLY allocated, remember to destroy it later
-*/
-Edge *Edge_Create(int numNode1, Point *node1, int numNode2, Point *node2);
-
-/**
- * Declaring the function that destroys a given edge:
- * Input: pointer to the edge
- * Output: none
- * Conditions: existent and allocated edge
- * Side effects: the pointer will point to NULL
-*/
-void Edge_Destroy(void *edge);
+typedef struct {
+    int node1, node2;
+    int weight;
+} Edge;
 
 /**
  * Declaring the function that prints a given edge:
@@ -63,7 +48,7 @@ bool Edge_PrintFile(void *edge, void *file);
  * Coditions: existent and allocated edges
  * Side effects: none
 */
-int Edge_CompareWeight(void *edgeA, void *edgeB);
+int Edge_CompareWeight(const void *edgeA, const void *edgeB);
 
 /**
  * Declaring the function that compares two edges:
@@ -72,33 +57,6 @@ int Edge_CompareWeight(void *edgeA, void *edgeB);
  * Coditions: existent and allocated edges
  * Side effects: none
 */
-bool Edge_Compare(void *edgeA, void *edgeB);
-
-/**
- * Declaring the function that gets the 1º node of the edge:
- * Input: pointer to the edge
- * Output: 1º node of the edge
- * Conditions: existent and allocated edge
- * Side effects: none
-*/
-int Edge_GetNode_1(Edge *e);
-
-/**
- * Declaring the function that gets the 2º node of the edge:
- * Input: pointer to the edge
- * Output: 2º node of the edge
- * Conditions: existent and allocated edge
- * Side effects: none
-*/
-int Edge_GetNode_2(Edge *e);
-
-/**
- * Declaring the function that gets the weight of the edge:
- * Input: pointer to the edge
- * Output: weight of the edge
- * Conditions: existent and allocated edge
- * Side effects: none
-*/
-int Edge_GetWeight(Edge *e);
+bool Edge_Compare(const void *edgeA, const void *edgeB);
 
 #endif

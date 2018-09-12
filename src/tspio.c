@@ -14,10 +14,10 @@
 #include "../include/edge.h"
 
 // Defining the function that reads the input file:
-Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension)
+Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
 {
     FILE *in = fopen(filename,"r"); // opening the file for reading
-    Point **p;                      // array of pointers to cartesian points
+    Point *p;                      // array of pointers to cartesian points
     int i;                          // incrementation variable
     float x, y;                     // auxiliars for coordenates reading
     char s[20];                     // auxiliar for strings reading
@@ -80,13 +80,16 @@ Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         fscanf(in,"%s", s);
     }
 
-    p = malloc((*dimension)*sizeof(Point*)); // dynamically allocating the array
+    p = malloc((*dimension)*sizeof(Point)); // dynamically allocating the array
     // Reading:
     for(i = 0 ; i < *dimension ; i++)
     {
         fscanf(in,"%*s %f %f\n", &x, &y);
-        p[i] = Point_Create(i+1,x,y);
-        Point_Print(p[i],NULL);
+        p[i].group = i+1;
+        p[i].x = x;
+        p[i].y = y;
+        //printf("%d ", p[i].group);
+        //Point_Print(&p[i],NULL);
     }
 
     fclose(in); // closing the file
@@ -94,22 +97,11 @@ Point **TSPIO_ReadEntry(char *filename, char *name, int *dimension)
     return p;
 }
 
-// Defining the function that destroy the array criated in TSPIO_ReadEntry:
-void TSPIO_DestroyArrey(Point **p, int n)
+// Defining the function that prints the MST file:
+void TSPIO_PrintMST(Edge *edges, char *name, int dimension)
 {
     int i;
-    // Destroing every position on the array
-    for(i = 0 ; i < n ; i++)
-    {
-        Point_Destroy(p[i]);
-    }
-    // Destroing the array
-    free(p);
-}
 
-// Defining the function that prints the MST file:
-void TSPIO_PrintMST(List *edges, char *name, int dimension)
-{
     // Starting the file's name as <name>.mst
     char *fileName = malloc(strlen(name)+17);
     strcpy(fileName,name);
@@ -123,7 +115,9 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension)
     // Printing header
     fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
     // Printing edges
-    List_RunThrough(edges,Edge_PrintFile,out);
+    for(i = 0 ; i < dimension-1 ; i++) {
+        Edge_PrintFile(edges[i],out);
+    }
     fprintf(out, "EOF");
 
     // Closing file and destroing filename
@@ -135,6 +129,7 @@ void TSPIO_PrintMST(List *edges, char *name, int dimension)
 void TSPIO_PrintTour(int *nodes, char *name, int dimension)
 {
     int i;
+    int tam = (dimension-1)*2;
 
     // Starting the file's name as <name>.tour
     char *fileName = malloc(strlen(name)+19);
@@ -149,9 +144,9 @@ void TSPIO_PrintTour(int *nodes, char *name, int dimension)
     // Printing header
     fprintf(out, "NAME: %s\nTYPE: TOUR\nDIMENSION: %d\nTOUR_SECTION\n", name, dimension);
     // Printing tour
-    for(i = 0 ; i < dimension ; i++)
+    for(i = 0 ; i < tam ; i++)
     {
-        fprintf(out, "%d\n", nodes[i]);
+        if(nodes[i] != 0)   fprintf(out, "%d\n", nodes[i]);
     }
     fprintf(out, "EOF");
 
