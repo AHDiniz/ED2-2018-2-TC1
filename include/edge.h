@@ -14,9 +14,8 @@
 
 /**
  * Declaring a new edge type based on a struct containing:
- * int node1 => number of one node;
- * int node2 => number of the other node;
- * int weight => euclidian distance between both;
+ * int node1, node2 => identification of the nodes that the edge connects
+ * int weight => euclidian distance between both nodes;
 */
 typedef struct {
     int node1, node2;
@@ -24,8 +23,8 @@ typedef struct {
 } Edge;
 
 /**
- * Declaring the function that prints a given edge:
- * Inputs: pointer to the edge and a NULL pointer (allows callback to the list RunThrough function)
+ * Declaring the function that prints a given edge: (structured for a callback that won't be needed)
+ * Inputs: pointer to the edge and a NULL pointer
  * Output: false
  * Conditions: existent and allocated edge
  * Side effects: none
@@ -33,8 +32,8 @@ typedef struct {
 bool Edge_Print(void *edge, void *placeholder);
 
 /**
- * Declaring the function that prints a given edge on a given file:
- * Inputs: pointer to the edge and a FILE pointer (allows callback to the list RunThrough function)
+ * Declaring the function that prints a given edge on a given file: (structured for a callback that won't be needed)
+ * Inputs: pointer to the edge and a FILE pointer
  * Output: false
  * Conditions: existent and allocated edge and FILE enable to whrite
  * Side effects: none
@@ -44,7 +43,10 @@ bool Edge_PrintFile(void *edge, void *file);
 /**
  * Declaring the function that compares two edges's weights:
  * Inputs: pointers to the edges
- * Output: integer that is a) =0 if the weights are equal b) >0 if A's weight > B's weight c) <0 if A's weight < B's weight
+ * Output: an integer that is:
+ *      a) equal to 0 if the weights are equal;
+ *      b) positive if A's weight is bigger then B's weight;
+ *      c) negative if A's weight is smaller then B's weight
  * Coditions: existent and allocated edges
  * Side effects: none
 */

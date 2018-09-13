@@ -13,7 +13,7 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
-// Defining auxiliar function that calculate the euclidian distance between two cartesian points:
+// Defining auxiliar function to calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b)
 {
     float xd = a->x - b->x;
@@ -60,7 +60,7 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
         if(points[nA-1].group != points[nB-1].group) {
             mst[j] = &edges[i];
             j += 1;
-            Point_Agroup(points, dimension, &points[nA-1], &points[nB-1]);
+            Point_Group((points, dimension, &points[nA-1], &points[nB-1]);
         }
     }
     
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     Edge **mst;     // array of the MST edges
     int *tour;
 
-    // Reading input file, geting name, dimension and building a array with all points coordinates
+    // Reading input file, geting name, dimension and building an array with every point coordinate:
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
     // Calculating number of edges

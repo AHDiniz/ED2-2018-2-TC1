@@ -16,13 +16,13 @@
 // Defining the function that reads the input file:
 Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
 {
-    FILE *in = fopen(filename,"r"); // opening the file for reading
-    Point *p;                      // array of pointers to cartesian points
-    int i;                          // incrementation variable
-    float x, y;                     // auxiliars for coordenates reading
-    char s[20];                     // auxiliar for strings reading
+    FILE *in = fopen(filename,"r"); // Opening the file to read it
+    Point *p; // Array of pointers to cartesian points
+    int i; // Incrementation variable
+    float x, y; // Auxiliar variables to read the coordinates
+    char s[20]; // Auxiliar variable to read strings
 
-    // Finding and reading the problem's name
+    // Finding and reading the problem's name:
     fscanf(in,"%s", s);
     while(strcmp(s,"NAME:") != 0)
     {
@@ -31,7 +31,7 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
     }
     fscanf(in,"%s", name);
 
-    // Finding and reading the problem's type 
+    // Finding and reading the problem's type:
     fscanf(in,"%s", s);
     while(strcmp(s,"TYPE:") != 0)
     {
@@ -39,14 +39,14 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         fscanf(in,"%s", s);
     }
     fscanf(in,"%s", s);
-    // Checking the type
+    // Checking the type:
     if(strcmp(s,"TSP") != 0)
     {
         printf("ERROR: Type must be TSP\n");
         exit(1);
     }
 
-    // Finding and reading the problem's dimension
+    // Finding and reading the problem's dimension:
     fscanf(in,"%s", s);
     while(strcmp(s,"DIMENSION:") != 0)
     {
@@ -56,7 +56,7 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
     fscanf(in,"%s", s);
     *dimension = atoi(s);
 
-    // Finding and reading the problem's edge weight type
+    // Finding and reading the problem's edge weight type:
     fscanf(in,"%s", s);
     while(strcmp(s,"EDGE_WEIGHT_TYPE:") != 0)
     {
@@ -64,15 +64,14 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         fscanf(in,"%s", s);
     }
     fscanf(in,"%s", s);
-    // checking the edge weight type
+    // Checking the edge weight type:
     if(strcmp(s,"EUC_2D") != 0)
     {
         printf("ERROR: Edge Weight Type must be EUC_2D\n");
         exit(1);
     }
 
-    // Finding and reading the problem's coordenates
-    // Finding:
+    // Finding and reading the problem's coordenates:
     fscanf(in,"%s", s);
     while(strcmp(s,"NODE_COORD_SECTION") != 0)
     {
@@ -80,7 +79,7 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         fscanf(in,"%s", s);
     }
 
-    p = malloc((*dimension)*sizeof(Point)); // dynamically allocating the array
+    p = malloc((*dimension)*sizeof(Point)); // Dynamically allocating the array
     // Reading:
     for(i = 0 ; i < *dimension ; i++)
     {
@@ -88,11 +87,9 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         p[i].group = i+1;
         p[i].x = x;
         p[i].y = y;
-        //printf("%d ", p[i].group);
-        //Point_Print(&p[i],NULL);
     }
 
-    fclose(in); // closing the file
+    fclose(in); // Closing the file
 
     return p;
 }
@@ -102,25 +99,25 @@ void TSPIO_PrintMST(Edge *edges, char *name, int dimension)
 {
     int i;
 
-    // Starting the file's name as <name>.mst
+    // Starting the file's name as <<name>>.mst:
     char *fileName = malloc(strlen(name)+17);
     strcpy(fileName,name);
     strcat(fileName,".mst");
-    // Including relative datapath
+    // Including relative datapath:
     strcat("../out/mst/",fileName);
 
-    // Opening output file
+    // Opening output file:
     FILE *out = fopen(fileName,"w"); // criating output file
 
-    // Printing header
+    // Printing header:
     fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
-    // Printing edges
+    // Printing edges:
     for(i = 0 ; i < dimension-1 ; i++) {
         Edge_PrintFile(edges[i],out);
     }
     fprintf(out, "EOF");
 
-    // Closing file and destroing filename
+    // Closing file and destroing filename:
     fclose(out);
     free(fileName);
 }
@@ -131,26 +128,26 @@ void TSPIO_PrintTour(int *nodes, char *name, int dimension)
     int i;
     int tam = (dimension-1)*2;
 
-    // Starting the file's name as <name>.tour
+    // Starting the file's name as <<name>>.tour:
     char *fileName = malloc(strlen(name)+19);
     strcpy(fileName,name);
     strcat(fileName,".tour");
-    // Including relative datapath
+    // Including relative datapath:
     strcat("../out/tour/",fileName);
 
-    // Opening output file
+    // Opening output file:
     FILE *out = fopen(fileName,"w");
 
-    // Printing header
+    // Printing header:
     fprintf(out, "NAME: %s\nTYPE: TOUR\nDIMENSION: %d\nTOUR_SECTION\n", name, dimension);
-    // Printing tour
+    // Printing tour:
     for(i = 0 ; i < tam ; i++)
     {
         if(nodes[i] != 0)   fprintf(out, "%d\n", nodes[i]);
     }
     fprintf(out, "EOF");
 
-    // Closing file and destroing filename
+    // Closing file and destroing filename:
     fclose(out);
     free(fileName);
 }

@@ -26,7 +26,7 @@ bool Point_Compare(void *pointA, void *pointB)
 }
 
 // Defining the function that agroup two given points in a given point array:
-void Point_Agroup(Point *points, int dimension, Point *pointA, Point *pointB)
+void Point_Group(Point *points, int dimension, Point *pointA, Point *pointB)
 {
     int gA = pointA->group;
     int gB = pointB->group;

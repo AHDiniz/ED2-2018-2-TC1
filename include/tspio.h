@@ -10,23 +10,22 @@
 #define MSTIO_H_
 
 #include "../include/point.h"
-//#include "../include/list.h"
 
 /**
  * Declaring the function that reads the input file:
- * Inputs: the file's name, a string and a integer pointer
+ * Inputs: the file's name, the name of the problem and a pointer to the dimension of the problem
  * Output: array of pointers to the cartisian points
- * Conditions: string allocated, file of type TSP
- * Side effects: the array is dynamically alocated, name receive the problem's name and dimension receive the problem's dimension
+ * Conditions: the file must be an existent .tsp file
+ * Side effects: the array is DYNAMICALLY alocated, REMEMBER TO DESTROY IT LATER!!!
 */
 Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension);
 
 /**
  * Declaring the function that prints the MST file:
- * Inputs: pointer to the list of edges, the problem's name and the problem's dimension
+ * Inputs: array of edges, the problem's name and the problem's dimension
  * Outputs: none
- * Conditions: list allocated, existent name and dimension
- * Side effects: none
+ * Conditions: existent and allocated array, the name and the dimension must be valid
+ * Side effects: a .mst file is created
 */
 void TSPIO_PrintMST(Edge *edges, char *name, int dimension);
 
@@ -35,8 +34,8 @@ void TSPIO_PrintMST(Edge *edges, char *name, int dimension);
  * Inputs: array of nodes(integers), the problem's name and the problem's dimension
  * Outputs: none
  * Conditions: all inputs exist
- * Side effects: none
+ * Side effects: a .tour file is created
 */
-void TSPIO_PrintTour(int *vetices, char *name, int dimension);
+void TSPIO_PrintTour(int *nodes, char *name, int dimension);
 
 #endif

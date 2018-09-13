@@ -47,6 +47,6 @@ bool Point_Compare(void *pointA, void *pointB);
  * Conditions: existent and allocated points and array
  * Side effects: all points of group B bacome group A
 */
-void Point_Agroup(Point *points,int dimension, Point *pointA, Point *pointB);
+void Point_Group(Point *points, int dimension, Point *pointA, Point *pointB);
 
 #endif // POINT_H_
