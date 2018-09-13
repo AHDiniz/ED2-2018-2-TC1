@@ -44,8 +44,8 @@ bool Edge_PrintFile(void *edge, void *file);
  * Declaring the function that compares two edges's weights:
  * Inputs: pointers to the edges
  * Output: an integer that is:
- *      a) equal to 0 if the weights are equal;
- *      b) positive if A's weight is bigger then B's weight;
+ *      a) equal to 0 if the weights are equal
+ *      b) positive if A's weight is bigger then B's weight
  *      c) negative if A's weight is smaller then B's weight
  * Coditions: existent and allocated edges
  * Side effects: none
