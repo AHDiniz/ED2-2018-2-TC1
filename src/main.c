@@ -87,6 +87,16 @@ int *BuildTour(Edge **mst, int dimension)
     return t;
 }
 
+// Function that removes the repeated items of an integer array:
+// The repeated items are changed to 0
+void RemoveRepeated(int *array, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+        for (int j = i + 1; j < size; j++)
+            if (array[i] == array[j])
+                array[j] = 0;
+}
+
 int main(int argc, char *argv[])
 {
     int i;          // incrementation variable
