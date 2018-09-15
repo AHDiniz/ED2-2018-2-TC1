@@ -60,7 +60,7 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
         if(points[nA-1].group != points[nB-1].group) {
             mst[j] = &edges[i];
             j += 1;
-            Point_Group((points, dimension, &points[nA-1], &points[nB-1]);
+            Point_Group(points, dimension, &points[nA-1], &points[nB-1]);
         }
     }
     
