@@ -84,7 +84,7 @@ int *BuildTour(Edge **mst, int dimension)
         j += 1;
     }
 
-    RemoveRepeated(t, 2 * dimension - 1);
+    RemoveRepeated(t, 2 * (dimension - 1));
 
     return t;
 }
@@ -124,9 +124,19 @@ int main(int argc, char *argv[])
     // Building the MST
     mst = BuildMST(e,p,nEdges,dimension);
 
-    for(i = 0 ; i < dimension-1 ; i++) {
-        Edge_Print(mst[i],NULL);
-    }
+    // Printing the MST file
+    TSPIO_PrintMST(mst,name,dimension);
+
+    // Building the tour
+    tour = BuildTour(mst,dimension);
+
+    // Printing the tour file
+    TSPIO_PrintTour(tour,name,dimension);
+
+    //for(i = 0 ; i < 2*(dimension-1) ; i++) {
+    //    Edge_Print(mst[i],NULL);
+    //    printf("%d\n", tour[i]);
+    //}
     //printf("comp = %d\n", Edge_CompareWeight(&e[nEdges-2],&e[nEdges-1]));
 
     // Destroing the utilized structures

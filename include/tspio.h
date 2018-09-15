@@ -10,6 +10,7 @@
 #define MSTIO_H_
 
 #include "../include/point.h"
+#include "../include/edge.h"
 
 /**
  * Declaring the function that reads the input file:
@@ -27,7 +28,7 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension);
  * Conditions: existent and allocated array, the name and the dimension must be valid
  * Side effects: a .mst file is created
 */
-void TSPIO_PrintMST(Edge *edges, char *name, int dimension);
+void TSPIO_PrintMST(Edge **edges, char *name, int dimension);
 
 /**
  * Declaring the function that prints the tour file:

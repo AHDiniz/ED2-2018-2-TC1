@@ -95,16 +95,16 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
 }
 
 // Defining the function that prints the MST file:
-void TSPIO_PrintMST(Edge *edges, char *name, int dimension)
+void TSPIO_PrintMST(Edge **edges, char *name, int dimension)
 {
     int i;
 
-    // Starting the file's name as <<name>>.mst:
+    // Starting the file's name as the relative datapath:
     char *fileName = malloc(strlen(name)+17);
-    strcpy(fileName,name);
+    strcpy(fileName,"../out/mst/");
+    // Including <<name>>.mst:
+    strcat(fileName,name);
     strcat(fileName,".mst");
-    // Including relative datapath:
-    strcat("../out/mst/",fileName);
 
     // Opening output file:
     FILE *out = fopen(fileName,"w"); // criating output file
@@ -128,12 +128,12 @@ void TSPIO_PrintTour(int *nodes, char *name, int dimension)
     int i;
     int tam = (dimension-1)*2;
 
-    // Starting the file's name as <<name>>.tour:
+    // Starting the file's name as the relative datapath:
     char *fileName = malloc(strlen(name)+19);
-    strcpy(fileName,name);
+    strcpy(fileName,"../out/tour/");
+    // Including  <<name>>.tour:
+    strcat(fileName,name);
     strcat(fileName,".tour");
-    // Including relative datapath:
-    strcat("../out/tour/",fileName);
 
     // Opening output file:
     FILE *out = fopen(fileName,"w");
