@@ -13,6 +13,8 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
+void RemoveRepeated(int *array, int size);
+
 // Defining auxiliar function to calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b)
 {
@@ -82,7 +84,7 @@ int *BuildTour(Edge **mst, int dimension)
         j += 1;
     }
 
-    // função que remove repetições aqui!!
+    RemoveRepeated(t, 2 * dimension - 1);
 
     return t;
 }
