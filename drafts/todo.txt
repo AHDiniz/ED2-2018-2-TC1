@@ -1,11 +1,3 @@
 Coisas que devem ser feitas:
 
-1 - Instalar bibliotecas python;
-2 - Abrir os arquivos com os padrões de entrada, de teste e de saída;
-3 - Implementar e testar estruturas utilitárias como listas, pontos, e outros;
-4 - Fazer o programa ler os arquivos de entrada;
-5 - Decidir qual estrutura de dados usar para armazenar os dados de entrada;
-6 - Implementar e testar a estrutura;
-7 - Usar a estrutura para armazenar os dados (TESTAR PRA CARACA!!!);
-8 - Implementar e usar o algoritmo de Kruskal;
-9 - Gerar arquivos de saída;
+1 - Função que retira os itens repetidos de um vetor de itens;
