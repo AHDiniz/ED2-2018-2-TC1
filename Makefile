@@ -7,28 +7,28 @@
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -O2
+CFLAGS = -Wall -Wextra -O2 -lm
 
 SRC = src/
 
 BIN = bin/
 
-all: trab1
+all: $(BIN)trab1
 
 $(BIN)trab1: main.o edge.o point.o tspio.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
-$(BIN)main.o: $(SRC)main.c
-	$(CC) -c $^
+main.o: $(SRC)main.c
+	$(CC) -c $^ $(CFLAGS)
 
-$(BIN)edge.o: $(SRC)edge.c
-	$(CC) -c $^
+edge.o: $(SRC)edge.c
+	$(CC) -c $^ $(CFLAGS)
 
-$(BIN)point.o: $(SRC)point.c
-	$(CC) -c $^
+point.o: $(SRC)point.c
+	$(CC) -c $^ $(CFLAGS)
 
-$(BIN)tspio.o: $(SRC)tspio.c
-	$(CC) -c $^
+tspio.o: $(SRC)tspio.c
+	$(CC) -c $^ $(CFLAGS)
 
 clean:
 	rm *.o
