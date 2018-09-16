@@ -7,7 +7,7 @@
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -O2 -lm
+CFLAGS = -Wall -Wextra -O2 -lm -g
 
 SRC = src/
 
@@ -32,3 +32,9 @@ tspio.o: $(SRC)tspio.c
 
 clean:
 	rm *.o
+
+debug: $(BIN)trab1
+	gdb --args $(BIN)trab1 ../assets/in/berlin52.tsp
+
+memcheck: $(BIN)trab1
+	valgrind $(BIN)trab1 ../assets/in/berlin52.tsp
