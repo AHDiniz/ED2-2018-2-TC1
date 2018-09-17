@@ -143,6 +143,7 @@ int main(int argc, char *argv[])
     free(p);
     free(e);
     free(mst);
+    free(tour);
 
     return 0;
 }
