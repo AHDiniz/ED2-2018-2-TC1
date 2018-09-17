@@ -46,7 +46,7 @@ Point *TSPIO_ReadEntry(char *filename, char *name, int *dimension)
         exit(1);
     }
 
-    // Finding and reading the problem's dimension:
+    // Finding and reading the problem's dimension: 
     fscanf(in,"%s", s);
     while(strcmp(s,"DIMENSION:") != 0)
     {

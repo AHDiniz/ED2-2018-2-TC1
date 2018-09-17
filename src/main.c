@@ -106,11 +106,12 @@ int main(int argc, char *argv[])
     int dimension;  // problem's dimension
     int nEdges;     // number of edges
     Point *p;       // array of points
-    Edge *e;        // array of edges
+    Edge *e;        // array of edges 
     Edge **mst;     // array of the MST edges
     int *tour;
 
     // Reading input file, geting name, dimension and building an array with every point coordinate:
+
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
     // Calculating number of edges
