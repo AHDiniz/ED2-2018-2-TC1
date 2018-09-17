@@ -13,6 +13,10 @@ SRC = src/
 
 BIN = bin/
 
+PROBLEM = berlin52.tsp
+
+IN = ../assets/in
+
 all: $(BIN)trab1
 
 $(BIN)trab1: main.o edge.o point.o tspio.o
@@ -34,7 +38,10 @@ clean:
 	rm *.o
 
 debug: $(BIN)trab1
-	gdb --args $(BIN)trab1 ../assets/in/berlin52.tsp
+	cd $(BIN) && gdb --args trab1 $(IN)/$(PROBLEM) && cd ..
 
 memcheck: $(BIN)trab1
-	valgrind $(BIN)trab1 ../assets/in/berlin52.tsp
+	cd $(BIN) && valgrind ./trab1 $(IN)/$(PROBLEM) && cd ..
+
+run: $(BIN)trab1
+	cd $(BIN) && ./trab1 $(IN)/$(PROBLEM) && cd ..
