@@ -108,9 +108,13 @@ int main(int argc, char *argv[])
     Edge **mst;     // array of the MST edges
     int *tour;
 
+    double totalExecTime = 0.0; // Total execution time of the program in seconds (not considering I/O)
+
     // Reading input file, geting name, dimension and building an array with every point coordinate:
 
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
+
+    clock_t init = clock();
 
     // Calculating number of edges
     nEdges = ((dimension-1)*dimension)/2;
@@ -123,11 +127,23 @@ int main(int argc, char *argv[])
     // Building the MST
     mst = BuildMST(e,p,nEdges,dimension);
 
+    clock_t end = clock();
+
+    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+
     // Printing the MST file
     TSPIO_PrintMST(mst,name,dimension);
 
+    init = clock();
+
     // Building the tour
     tour = BuildTour(mst,dimension);
+
+    end = clock();
+
+    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+
+    printf("Total program execution: %fs\n", totalExecTime);
 
     // Printing the tour file
     TSPIO_PrintTour(tour,name,dimension);

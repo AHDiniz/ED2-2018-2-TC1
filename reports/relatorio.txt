@@ -1,0 +1,13 @@
+Relatório Trabalho 1 - Aproximação de Solução para "Caixeiro Viajante" usando Árvore Geradora Mínima
+
+Autores: Alan Herculano Diniz e Rafael Belmock Pedruzzi
+
+Tabela de Resultados:
+
+PROB      TIME (s)
+berlin52  0.015625s
+eil101    0.031250s
+tsp225    0.015625s
+a280      0.015625s
+pr1002    0.109375s
+d18512    68.171875s
