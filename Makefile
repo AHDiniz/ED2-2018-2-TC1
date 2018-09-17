@@ -17,6 +17,12 @@ PROBLEM = berlin52
 
 IN = ../assets/in
 
+PLOT = ./tsp_plot.py
+
+MST = out/mst
+
+TOUR = out/tour
+
 all: $(BIN)trab1
 
 $(BIN)trab1: main.o edge.o point.o tspio.o
@@ -45,3 +51,6 @@ memcheck: $(BIN)trab1
 
 run: $(BIN)trab1
 	cd $(BIN) && ./trab1 $(IN)/$(PROBLEM).tsp && cd ..
+
+visualize: $(BIN)trab1
+	$(PLOT) assets/in/$(PROBLEM).tsp $(MST)/$(PROBLEM).mst $(TOUR)/$(PROBLEM).tour
