@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #include "../include/tspio.h"
 #include "../include/point.h"
@@ -32,13 +33,10 @@ Edge *BuildEdgesList(Point *p, int dimension, int nEdges)
 
     // building a edge between each point in the array
     for(i = 0 ; i < dimension ; i++) {          // selecting a point "i"
-        for(j = i+1 ; j < dimension ; j++) {    // building a edge between "i" and each subsequent point
+        for(j = i+1 ; j < dimension ; j++, k++) {    // building a edge between "i" and each subsequent point
             edges[k].node1 = i+1;
             edges[k].node2 = j+1;
             edges[k].weight = compute_dist(&p[i],&p[j]);
-            //printf("%d ", k);
-            //Edge_Print(&edges[k],NULL);
-            k += 1;
         }
     }
     return edges; // returning list
@@ -101,7 +99,7 @@ void RemoveRepeated(int *array, int size)
 
 int main(int argc, char *argv[])
 {
-    int i;          // incrementation variable
+    //int i;          // incrementation variable
     char name[20];  // problem's name
     int dimension;  // problem's dimension
     int nEdges;     // number of edges
@@ -134,16 +132,11 @@ int main(int argc, char *argv[])
     // Printing the tour file
     TSPIO_PrintTour(tour,name,dimension);
 
-    //for(i = 0 ; i < 2*(dimension-1) ; i++) {
-    //    Edge_Print(mst[i],NULL);
-    //    printf("%d\n", tour[i]);
-    //}
-    //printf("comp = %d\n", Edge_CompareWeight(&e[nEdges-2],&e[nEdges-1]));
-
     // Destroing the utilized structures
     free(p);
     free(e);
     free(mst);
+    free(tour);
 
     return 0;
 }
