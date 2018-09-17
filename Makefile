@@ -13,7 +13,7 @@ SRC = src/
 
 BIN = bin/
 
-PROBLEM = berlin52.tsp
+PROBLEM = berlin52
 
 IN = ../assets/in
 
@@ -38,10 +38,10 @@ clean:
 	rm *.o
 
 debug: $(BIN)trab1
-	cd $(BIN) && gdb --args trab1 $(IN)/$(PROBLEM) && cd ..
+	cd $(BIN) && gdb --args trab1 $(IN)/$(PROBLEM).tsp && cd ..
 
 memcheck: $(BIN)trab1
-	cd $(BIN) && valgrind ./trab1 $(IN)/$(PROBLEM) && cd ..
+	cd $(BIN) && valgrind ./trab1 $(IN)/$(PROBLEM).tsp && cd ..
 
 run: $(BIN)trab1
-	cd $(BIN) && ./trab1 $(IN)/$(PROBLEM) && cd ..
+	cd $(BIN) && ./trab1 $(IN)/$(PROBLEM).tsp && cd ..
