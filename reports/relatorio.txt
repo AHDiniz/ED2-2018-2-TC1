@@ -4,7 +4,7 @@ Autores: Alan Herculano Diniz e Rafael Belmock Pedruzzi
 
 Tabela de Resultados:
 
-PROB      TIME (s)
+PROB      TIME (s)   MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
 berlin52  0.015625s
 eil101    0.031250s
 tsp225    0.015625s
