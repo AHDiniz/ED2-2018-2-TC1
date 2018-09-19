@@ -15,6 +15,7 @@
 #include "../include/edge.h"
 
 void RemoveRepeated(int *array, int size);
+void Add_Adjacency(int *adj, int nodeA, int nodeB);
 
 // Defining auxiliar function to calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b)
@@ -68,23 +69,58 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
 }
 
 // Function that build the tour
-int *BuildTour(Edge **mst, int dimension)
+int *BuildTour(Edge **mst, Point *nodes, int dimension)
 {
     int i,j=0;                                      // incrementation variable
-    int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
+    //int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
+    int *t = malloc(dimension*sizeof(int));
+    int adj[dimension*6];
+
+    for(i = 0 ; i < dimension*6 ; i++) { adj[i] = 0; }
 
     // for each edge on the edge array include its nodes on the tour array
     for(i = 0 ; i < dimension-1 ; i++)
     {
-        t[j] = mst[i]->node1;
-        j += 1;
-        t[j] = mst[i]->node2;
-        j += 1;
+        Add_Adjacency(adj,mst[i]->node1,mst[i]->node2);
+        Add_Adjacency(adj,mst[i]->node2,mst[i]->node1);
+
+        //t[j] = mst[i]->node1;
+        //j += 1;
+        //t[j] = mst[i]->node2;
+        //j += 1;
     }
 
-    RemoveRepeated(t, 2 * (dimension - 1));
+    //RemoveRepeated(t, 2 * (dimension - 1));
+
+    Tour(t,adj,nodes,0,j);
 
     return t;
+}
+
+void Add_Adjacency(int *adj, int nodeA, int nodeB)
+{
+    int i=0;
+    int nA = nodeA * 6;
+    while(adj[nA+i] != 0) {
+        i += 1;
+    }
+    adj[nA+i] = nodeB;
+}
+
+void Tour(int *tour, int *adj, Point *nodes, int current, int *tourTam)
+{
+    int i=0;
+    int next;
+    int position = current * 6;
+
+    for(next = adj[position+i] ; next != 0 && i < 6 ; next = adj[position+(++i)]) {
+        if( nodes[current].group != 0) {
+            tour[*tourTam] = next;
+            *tourTam += 1;
+            nodes[current].group = 0;
+            Tour(tour,adj,nodes,next,tourTam);
+        }
+    }
 }
 
 // Function that removes the repeated items of an integer array:
@@ -137,7 +173,7 @@ int main(int argc, char *argv[])
     init = clock();
 
     // Building the tour
-    tour = BuildTour(mst,dimension);
+    tour = BuildTour(mst,p,dimension);
 
     end = clock();
 
