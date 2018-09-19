@@ -4,10 +4,22 @@ Autores: Alan Herculano Diniz e Rafael Belmock Pedruzzi
 
 Tabela de Resultados:
 
-PROB      TIME (s)   MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
-berlin52  0.015625s
-eil101    0.031250s
-tsp225    0.015625s
+Com flag de compilação -O2:
+
+PROB      TIME (s)    MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
+berlin52  <0.000001s
+eil101    <0.000001s
+tsp225    <0.000001s
 a280      0.015625s
-pr1002    0.109375s
-d18512    68.171875s
+pr1002    0.093750s
+d18512    50.312500s
+
+Com flag de compilação -O3: (Provavelmente está acontecendo alguma coisa errada)
+
+PROB      TIME (s)    MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
+berlin52  <0.000001s
+eil101    <0.000001s
+tsp225    0.015625s
+a280      <0.000001s
+pr1002    0.093750s
+d18512    >1 minuto

@@ -60,7 +60,7 @@ memcheckopt: opt
 run: $(BIN)trab1
 	cd $(BIN) && ./trab1 $(IN)/$(PROBLEM).tsp && cd ..
 
-runopt: opt
+runopt: 
 	cd $(BIN) && ./trab1_opt $(IN)/$(PROBLEM).tsp && cd ..
 
 visualize: $(BIN)trab1
