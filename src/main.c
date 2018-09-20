@@ -16,6 +16,7 @@
 
 void RemoveRepeated(int *array, int size);
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
+void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
 
 // Defining auxiliar function to calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b)
@@ -71,18 +72,19 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
 // Function that build the tour
 int *BuildTour(Edge **mst, Point *nodes, int dimension)
 {
-    int i,j=0;                                      // incrementation variable
+    int i, j=0;                                      // incrementation variable
     //int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
-    int *t = malloc(dimension*sizeof(int));
-    int adj[dimension*6];
+    int *t = malloc(dimension*sizeof(int));     // array of integers representing the tour
+    int *adj = malloc(dimension*6*sizeof(int)); // array of integers representing the graph of the MST
 
+    // initializing adj as 0
     for(i = 0 ; i < dimension*6 ; i++) { adj[i] = 0; }
 
-    // for each edge on the edge array include its nodes on the tour array
+    // including each edge in the adjacency's array 
     for(i = 0 ; i < dimension-1 ; i++)
     {
-        Add_Adjacency(adj,mst[i]->node1,mst[i]->node2);
-        Add_Adjacency(adj,mst[i]->node2,mst[i]->node1);
+        Add_Adjacency(adj,mst[i]->node1,mst[i]->node2); // adding adjacency from node1 to node2
+        Add_Adjacency(adj,mst[i]->node2,mst[i]->node1); // adding adjacency from node2 to node1
 
         //t[j] = mst[i]->node1;
         //j += 1;
@@ -92,34 +94,46 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension)
 
     //RemoveRepeated(t, 2 * (dimension - 1));
 
-    Tour(t,adj,nodes,0,j);
+    Tour(t,adj,nodes,1,&j);
+
+    free(adj);
 
     return t;
 }
 
+// add a directed adjacency between two nodes in a given graph (max adj/node = 6)
 void Add_Adjacency(int *adj, int nodeA, int nodeB)
 {
-    int i=0;
-    int nA = nodeA * 6;
+    int i=0;                // incrementation variable
+    int nA = (nodeA-1) * 6; // position of the fist node's adjacencies in the graph
+    // serching the fist empty position
     while(adj[nA+i] != 0) {
         i += 1;
     }
+    // adding the node target in the position
     adj[nA+i] = nodeB;
 }
 
-void Tour(int *tour, int *adj, Point *nodes, int current, int *tourTam)
+// build the tour recursively
+void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize)
 {
-    int i=0;
-    int next;
-    int position = current * 6;
+    int i=0;                        // incrementation variable
+    int next;                       // auxiliar variable
+    int position = currentNode-1;   // position of the node in a array (initialized as the point's array)
 
+    // if the node was alredy marked the function is aborted
+    if( nodes[position].group == 0) {
+        return;
+    }
+    // else, the node is marked and added to the tour
+    nodes[position].group = 0;      // marking node
+    tour[*tourSize] = currentNode;   // adding to the tour
+    *tourSize += 1;                  // incrementing tour size
+
+    position *= 6; // updating position to be used in the adjacencies array
+    // executing tour in each adjacent and not empty node (max of 6)
     for(next = adj[position+i] ; next != 0 && i < 6 ; next = adj[position+(++i)]) {
-        if( nodes[current].group != 0) {
-            tour[*tourTam] = next;
-            *tourTam += 1;
-            nodes[current].group = 0;
-            Tour(tour,adj,nodes,next,tourTam);
-        }
+        Tour(tour,adj,nodes,next,tourSize);
     }
 }
 
