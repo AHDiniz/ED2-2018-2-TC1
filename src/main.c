@@ -128,8 +128,8 @@ void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize)
     }
     // else, the node is marked and added to the tour
     nodes[position].group = 0;      // marking node
-    tour[*tourSize] = currentNode;   // adding to the tour
-    *tourSize += 1;                  // incrementing tour size
+    tour[*tourSize] = currentNode;  // adding to the tour
+    *tourSize += 1;                 // incrementing tour size
 
     position *= 6; // updating position to be used in the adjacencies array
     // executing tour in each adjacent and not empty node (max of 6)
@@ -146,6 +146,18 @@ void RemoveRepeated(int *array, int size)
         for (int j = i + 1; j < size; j++)
             if (array[i] == array[j])
                 array[j] = 0;
+}
+
+int Tour_Weight(int *t, Point *p, int dimension)
+{
+    int i;
+    int weight=0;
+    for(i = 0 ; i < dimension-1 ; i++) {
+        weight += compute_dist(&p[i],&p[i+1]);
+    }
+    weight += compute_dist(&p[i],&p[0]);
+
+    return weight;
 }
 
 int main(int argc, char *argv[])
@@ -204,6 +216,7 @@ int main(int argc, char *argv[])
 
     printf("Total program execution: %fs\n", totalExecTime);
     printf("MST Weight = %d\n", mstWeight);
+    printf("Tour Weight = %d\n", Tour_Weight(tour,p,dimension));
 
     // Printing the tour file
     TSPIO_PrintTour(tour,name,dimension);
