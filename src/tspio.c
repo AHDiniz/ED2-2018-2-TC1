@@ -126,7 +126,6 @@ void TSPIO_PrintMST(Edge **edges, char *name, int dimension)
 void TSPIO_PrintTour(int *nodes, char *name, int dimension)
 {
     int i;
-    int tam = (dimension-1)*2;
 
     // Starting the file's name as the relative datapath:
     char *fileName = malloc(strlen(name)+19);
@@ -141,9 +140,10 @@ void TSPIO_PrintTour(int *nodes, char *name, int dimension)
     // Printing header:
     fprintf(out, "NAME: %s\nTYPE: TOUR\nDIMENSION: %d\nTOUR_SECTION\n", name, dimension);
     // Printing tour:
-    for(i = 0 ; i < tam ; i++)
+    for(i = 0 ; i < dimension ; i++)
     {
-        if(nodes[i] != 0)   fprintf(out, "%d\n", nodes[i]);
+        if(nodes[i] != 0)
+            fprintf(out, "%d\n", nodes[i]);
     }
     fprintf(out, "EOF");
 

@@ -15,7 +15,7 @@ SRC = src/
 
 BIN = bin/
 
-PROBLEM = berlin52
+PROBLEM = d18512
 
 IN = ../assets/in
 
@@ -65,3 +65,6 @@ runopt:
 
 visualize: $(BIN)trab1
 	$(PLOT) assets/in/$(PROBLEM).tsp $(MST)/$(PROBLEM).mst $(TOUR)/$(PROBLEM).tour
+
+visualizeopt: $(BIN)trab1
+	$(PLOT) assets/in/$(PROBLEM).tsp $(MST)/$(PROBLEM).mst assets/opt/$(PROBLEM).opt.tour

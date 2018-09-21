@@ -70,12 +70,13 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
 }
 
 // Function that build the tour
-int *BuildTour(Edge **mst, Point *nodes, int dimension)
+int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
 {
-    int i, j=0;                                      // incrementation variable
-    //int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
-    int *t = malloc(dimension*sizeof(int));     // array of integers representing the tour
+    int i, j=0; // incrementation variables
+    int *t = malloc(dimension*sizeof(int)); // array of integers representing the tour
     int *adj = malloc(dimension*6*sizeof(int)); // array of integers representing the graph of the MST
+
+    *mstWeight = 0; // Initializing the tour's weight
 
     // initializing adj as 0
     for(i = 0 ; i < dimension*6 ; i++) { adj[i] = 0; }
@@ -85,11 +86,7 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension)
     {
         Add_Adjacency(adj,mst[i]->node1,mst[i]->node2); // adding adjacency from node1 to node2
         Add_Adjacency(adj,mst[i]->node2,mst[i]->node1); // adding adjacency from node2 to node1
-
-        //t[j] = mst[i]->node1;
-        //j += 1;
-        //t[j] = mst[i]->node2;
-        //j += 1;
+        *mstWeight += mst[i]->weight; // Calculating the tour's weight
     }
 
     //RemoveRepeated(t, 2 * (dimension - 1));
@@ -186,14 +183,17 @@ int main(int argc, char *argv[])
 
     init = clock();
 
+    int mstWeight;
+
     // Building the tour
-    tour = BuildTour(mst,p,dimension);
+    tour = BuildTour(mst,p,dimension, &mstWeight);
 
     end = clock();
 
     totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
     printf("Total program execution: %fs\n", totalExecTime);
+    printf("MST Weight = %d\n", mstWeight);
 
     // Printing the tour file
     TSPIO_PrintTour(tour,name,dimension);
