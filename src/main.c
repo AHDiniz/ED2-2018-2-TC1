@@ -150,12 +150,16 @@ void RemoveRepeated(int *array, int size)
 
 int Tour_Weight(int *t, Point *p, int dimension)
 {
-    int i;
+    int i, nA, nB;
     int weight=0;
     for(i = 0 ; i < dimension-1 ; i++) {
-        weight += compute_dist(&p[i],&p[i+1]);
+        nA = t[i];
+        nB = t[i+1];
+        weight += compute_dist(&p[nA-1],&p[nB-1]);
     }
-    weight += compute_dist(&p[i],&p[0]);
+    nA = t[dimension-1];
+    nB = t[0];
+    weight += compute_dist(&p[A-1],&p[nB-1]);
 
     return weight;
 }
