@@ -28,24 +28,25 @@ int compute_dist(Point *a, Point *b)
 }
 
 // Function that build a list with all edges between two points:
-Edge *BuildEdgesList(Point *p, int dimension, int nEdges)
+Edge **BuildEdgesList(Point *p, int dimension, int nEdges)
 {
     int i, j, k=0; // incrementation variables
-    Edge *edges = malloc(nEdges*sizeof(Edge));
+    Edge **edges = malloc(nEdges*sizeof(Edge*));
 
     // building a edge between each point in the array
     for(i = 0 ; i < dimension ; i++) {          // selecting a point "i"
         for(j = i+1 ; j < dimension ; j++, k++) {    // building a edge between "i" and each subsequent point
-            edges[k].node1 = i+1;
-            edges[k].node2 = j+1;
-            edges[k].weight = compute_dist(&p[i],&p[j]);
+            edges[k] = malloc(sizeof(Edge));
+            edges[k]->node1 = i+1;
+            edges[k]->node2 = j+1;
+            edges[k]->weight = compute_dist(&p[i],&p[j]);
         }
     }
     return edges; // returning list
 }
 
 // Function that build the MST
-Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
+Edge **BuildMST(Edge **edges,Point *points, int nEdges, int dimension)
 {
     int i, j=0;
     int nA, nB;
@@ -55,12 +56,15 @@ Edge **BuildMST(Edge *edges,Point *points, int nEdges, int dimension)
     {
         if(j == dimension-1) break;
 
-        nA = edges[i].node1; // getting the 1º edge's node
-        nB = edges[i].node2; // getting the 2º edge's node
+        nA = edges[i]->node1; // getting the 1º edge's node
+        nB = edges[i]->node2; // getting the 2º edge's node
 
         // If both nodes of the edge are already of the same group, so this edge is removed from the list
         if(points[nA-1].group != points[nB-1].group) {
-            mst[j] = &edges[i];
+            mst[j] = malloc(sizeof(Edge));
+            mst[j]->node1 = edges[i]->node1;
+            mst[j]->node2 = edges[i]->node2;
+            mst[j]->weight = edges[i]->weight;
             j += 1;
             Point_Group(points, dimension, &points[nA-1], &points[nB-1]);
         }
@@ -146,12 +150,12 @@ void RemoveRepeated(int *array, int size)
 
 int main(int argc, char *argv[])
 {
-    //int i;          // incrementation variable
+    int i;          // incrementation variable
     char name[20];  // problem's name
     int dimension;  // problem's dimension
     int nEdges;     // number of edges
     Point *p;       // array of points
-    Edge *e;        // array of edges 
+    Edge **e;        // array of edges
     Edge **mst;     // array of the MST edges
     int *tour;
 
@@ -169,10 +173,16 @@ int main(int argc, char *argv[])
     // Building a array with all edges between two points
     e = BuildEdgesList(p,dimension,nEdges);
 
-    qsort(e,nEdges,sizeof(Edge),Edge_CompareWeight);
+    qsort(e,nEdges,sizeof(Edge*),Edge_CompareWeight);
 
     // Building the MST
     mst = BuildMST(e,p,nEdges,dimension);
+
+    // Destroing edge's array
+    for(i = 0 ; i < nEdges ; i++) {
+        free(e[i]);
+    }
+    free(e);
 
     clock_t end = clock();
 
@@ -200,7 +210,9 @@ int main(int argc, char *argv[])
 
     // Destroing the utilized structures
     free(p);
-    free(e);
+    for(i = 0 ; i < dimension-1 ; i++) {
+        free(mst[i]);
+    }
     free(mst);
     free(tour);
 
