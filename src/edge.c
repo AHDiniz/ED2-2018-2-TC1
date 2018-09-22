@@ -31,9 +31,9 @@ bool Edge_PrintFile(void *edge, void *file)
 // Defining the function that compares two edges's weights:
 int Edge_CompareWeight(const void *edgeA, const void *edgeB)
 {
-    Edge *eA = *((Edge**) edgeA);
-    Edge *eB = *((Edge**) edgeB);
-    return eA->weight - eB->weight;
+    Edge *a = (Edge*)edgeA;
+    Edge *b = (Edge*)edgeB;
+    return a->weight - b->weight;
 }
 
 // Defining the function that compares two edges:
