@@ -144,6 +144,10 @@ int main(int argc, char *argv[])
 
         // Destroing the utilized structures
         free(p);
+        for (i = 0; i < dimension - 1; i++)
+        {
+            free(mst[i]);
+        }
         free(mst);
         free(tour);
     }
@@ -339,7 +343,10 @@ Edge **BuildMST_EdgeStruct(Edge *edges, Point *points, int nEdges, int dimension
 
         // If both nodes of the edge are already of the same group, so this edge is removed from the list
         if(points[nA-1].group != points[nB-1].group) {
-            mst[j] = &edges[i];
+            mst[j] = malloc(sizeof(Edge));
+            mst[j]->node1 = edges[i].node1;
+            mst[j]->node2 = edges[i].node2;
+            mst[j]->weight = edges[i].weight;
             j += 1;
             Point_Group(points, dimension, &points[nA-1], &points[nB-1]);
         }
