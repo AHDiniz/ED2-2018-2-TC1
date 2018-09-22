@@ -14,7 +14,7 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
-#define BIG_DIMENSION 10000
+#define BIG_DIMENSION 1
 
 void RemoveRepeated(int *array, int size);
 void Add_Adjacency(int *adj, int nodeA, int nodeB);

@@ -15,7 +15,7 @@ SRC = src/
 
 BIN = bin/
 
-PROBLEM = berlin52
+PROBLEM = tsp225
 
 IN = ../assets/in
 
