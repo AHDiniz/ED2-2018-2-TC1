@@ -14,6 +14,8 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
+#define BIG_DIMENSION 10000
+
 void RemoveRepeated(int *array, int size);
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
@@ -21,11 +23,16 @@ int compute_dist(Point *a, Point *b);
 Edge **BuildEdgesList(Point *p, int dimension, int nEdges);
 Edge *BuildEdgeStructList(Point *p, int dimension, int nEdges);
 Edge **BuildMST(Edge **edges, Point *points, int nEdges, int dimension);
+Edge *BuildMST_EdgeStruct(Edge *edges, Point *points, int nEdges, int dimension);
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight);
+int *BuildTour_EdgeStruct(Edge *mst, Point *nodes, int dimension, int *mstWeight);
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
 void RemoveRepeated(int *array, int size);
 int Tour_Weight(int *t, Point *p, int dimension);
+int CompareEdgeWeight(const void *edgeA, const void *edgeB);
+void PrintEdgeFile(Edge edge, FILE *file);
+void PrintMST_EdgeStruct(Edge *edges, char *name, int dimension);
 
 int main(int argc, char *argv[])
 {
@@ -48,54 +55,99 @@ int main(int argc, char *argv[])
     clock_t init = clock();
 
     // Calculating number of edges
-    nEdges = ((dimension-1)*dimension)/2;
+    nEdges = ((dimension - 1) * dimension) / 2;
 
-    // Building a array with all edges between two points
-    e = BuildEdgesList(p,dimension,nEdges);
+    if (dimension < BIG_DIMENSION)
+    {
+        // Building a array with all edges between two points
+        e = BuildEdgesList(p, dimension, nEdges);
+        qsort(e, nEdges, sizeof(Edge *), Edge_CompareWeight);
 
-    qsort(e,nEdges,sizeof(Edge*),Edge_CompareWeight);
+        // Building the MST
+        mst = BuildMST(e, p, nEdges, dimension);
 
-    // Building the MST
-    mst = BuildMST(e,p,nEdges,dimension);
+        // Destroing edge's array
+        for (i = 0; i < nEdges; i++)
+        {
+            free(e[i]);
+        }
+        free(e);
 
-    // Destroing edge's array
-    for(i = 0 ; i < nEdges ; i++) {
-        free(e[i]);
+        clock_t end = clock();
+
+        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+
+        // Printing the MST file
+        TSPIO_PrintMST(mst, name, dimension);
+
+        init = clock();
+
+        int mstWeight;
+
+        // Building the tour
+        tour = BuildTour(mst, p, dimension, &mstWeight);
+
+        end = clock();
+
+        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+
+        printf("Total program execution: %fs\n", totalExecTime);
+        printf("MST Weight = %d\n", mstWeight);
+        printf("Tour Weight = %d\n", Tour_Weight(tour, p, dimension));
+
+        // Printing the tour file
+        TSPIO_PrintTour(tour, name, dimension);
+
+        // Destroing the utilized structures
+        free(p);
+        for (i = 0; i < dimension - 1; i++)
+        {
+            free(mst[i]);
+        }
+        free(mst);
+        free(tour);
     }
-    free(e);
+    else
+    {
+        edges = BuildEdgeStructList(p, dimension, nEdges);
 
-    clock_t end = clock();
+        qsort(edges, nEdges, sizeof(Edge), CompareEdgeWeight);
 
-    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+        // Building the MST
+        mst = BuildMST_EdgeStruct(edges, p, nEdges, dimension);
+        
+        free(edges);
 
-    // Printing the MST file
-    TSPIO_PrintMST(mst,name,dimension);
+        clock_t end = clock();
 
-    init = clock();
+        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
-    int mstWeight;
+        // Printing the MST file
+        PrintMST_EdgeStruct(mst, name, dimension);
 
-    // Building the tour
-    tour = BuildTour(mst,p,dimension, &mstWeight);
+        init = clock();
 
-    end = clock();
+        int mstWeight;
 
-    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+        // Building the tour
+        tour = BuildTour_EdgeStruct(mst, p, dimension, &mstWeight);
 
-    printf("Total program execution: %fs\n", totalExecTime);
-    printf("MST Weight = %d\n", mstWeight);
-    printf("Tour Weight = %d\n", Tour_Weight(tour,p,dimension));
+        end = clock();
 
-    // Printing the tour file
-    TSPIO_PrintTour(tour,name,dimension);
+        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
-    // Destroing the utilized structures
-    free(p);
-    for(i = 0 ; i < dimension-1 ; i++) {
-        free(mst[i]);
+        printf("Total program execution: %fs\n", totalExecTime);
+        printf("MST Weight = %d\n", mstWeight);
+        printf("Tour Weight = %d\n", Tour_Weight(tour, p, dimension));
+
+        // Printing the tour file
+        TSPIO_PrintTour(tour, name, dimension);
+
+        // Destroing the utilized structures
+        free(p);
+        free(mst);
+        free(tour);
     }
-    free(mst);
-    free(tour);
 
     return 0;
 }
@@ -272,4 +324,103 @@ int Tour_Weight(int *t, Point *p, int dimension)
     weight += compute_dist(&p[nA - 1], &p[nB - 1]);
 
     return weight;
+}
+
+Edge *BuildMST_EdgeStruct(Edge *edges, Point *points, int nEdges, int dimension)
+{
+    int i, j = 0;
+    int nA, nB;
+    Edge *mst = malloc((dimension - 1) * sizeof(Edge));
+
+    for (i = 0; i < nEdges; i++)
+    {
+        if (j == dimension - 1)
+            break;
+
+        nA = edges[i].node1; // getting the 1º edge's node
+        nB = edges[i].node2; // getting the 2º edge's node
+
+        // If both nodes of the edge are already of the same group, so this edge is removed from the list
+        if (points[nA - 1].group != points[nB - 1].group)
+        {
+            mst[j].node1 = edges[i].node1;
+            mst[j].node2 = edges[i].node2;
+            mst[j].weight = edges[i].weight;
+            j += 1;
+            Point_Group(points, dimension, &points[nA - 1], &points[nB - 1]);
+        }
+    }
+
+    return mst;
+}
+
+int *BuildTour_EdgeStruct(Edge *mst, Point *nodes, int dimension, int *mstWeight)
+{
+    int i, j = 0;                                   // incrementation variables
+    int *t = malloc(dimension * sizeof(int));       // array of integers representing the tour
+    int *adj = malloc(dimension * 6 * sizeof(int)); // array of integers representing the graph of the MST
+
+    *mstWeight = 0; // Initializing the tour's weight
+
+    // initializing adj as 0
+    for (i = 0; i < dimension * 6; i++)
+    {
+        adj[i] = 0;
+    }
+
+    // including each edge in the adjacency's array
+    for (i = 0; i < dimension - 1; i++)
+    {
+        Add_Adjacency(adj, mst[i].node1, mst[i].node2); // adding adjacency from node1 to node2
+        Add_Adjacency(adj, mst[i].node2, mst[i].node1); // adding adjacency from node2 to node1
+        *mstWeight += mst[i].weight;                     // Calculating the tour's weight
+    }
+
+    //RemoveRepeated(t, 2 * (dimension - 1));
+
+    Tour(t, adj, nodes, 1, &j);
+
+    free(adj);
+
+    return t;
+}
+
+int CompareEdgeWeight(const void *edgeA, const void *edgeB)
+{
+    Edge a = *((Edge*)edgeA);
+    Edge b = *((Edge*)edgeB);
+    return a.weight - b.weight;
+}
+
+void PrintEdgeFile(Edge edge, FILE *file)
+{
+    fprintf(file, "%d %d\n", edge.node1, edge.node2);
+}
+
+void PrintMST_EdgeStruct(Edge *edges, char *name, int dimension)
+{
+    int i;
+
+    // Starting the file's name as the relative datapath:
+    char *fileName = malloc(strlen(name) + 17);
+    strcpy(fileName, "../out/mst/");
+    // Including <<name>>.mst:
+    strcat(fileName, name);
+    strcat(fileName, ".mst");
+
+    // Opening output file:
+    FILE *out = fopen(fileName, "w"); // criating output file
+
+    // Printing header:
+    fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
+    // Printing edges:
+    for (i = 0; i < dimension - 1; i++)
+    {
+        PrintEdgeFile(edges[i], out);
+    }
+    fprintf(out, "EOF");
+
+    // Closing file and destroing filename:
+    fclose(out);
+    free(fileName);
 }
