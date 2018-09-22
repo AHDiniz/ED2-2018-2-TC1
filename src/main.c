@@ -370,11 +370,7 @@ int *BuildTour_EdgeStruct(Edge **mst, Point *nodes, int dimension, int *mstWeigh
     {
         Add_Adjacency(adj,mst[i]->node1,mst[i]->node2); // adding adjacency from node1 to node2
         Add_Adjacency(adj,mst[i]->node2,mst[i]->node1); // adding adjacency from node2 to node1
-
-        //t[j] = mst[i]->node1;
-        //j += 1;
-        //t[j] = mst[i]->node2;
-        //j += 1;
+        *mstWeight += mst[i]->weight;                   // Calculating the tour's weight
     }
 
     //RemoveRepeated(t, 2 * (dimension - 1));
