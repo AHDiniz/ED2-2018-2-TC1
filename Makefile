@@ -15,7 +15,7 @@ SRC = src/
 
 BIN = bin/
 
-PROBLEM = d18512
+PROBLEM = eil101
 
 IN = ../assets/in
 
