@@ -387,9 +387,9 @@ int *BuildTour_EdgeStruct(Edge *mst, Point *nodes, int dimension, int *mstWeight
 
 int CompareEdgeWeight(const void *edgeA, const void *edgeB)
 {
-    Edge a = *((Edge*)edgeA);
-    Edge b = *((Edge*)edgeB);
-    return a.weight - b.weight;
+    Edge *a = (Edge*)edgeA;
+    Edge *b = (Edge*)edgeB;
+    return a->weight - b->weight;
 }
 
 void PrintEdgeFile(Edge edge, FILE *file)
