@@ -45,6 +45,23 @@ Edge **BuildEdgesList(Point *p, int dimension, int nEdges)
     return edges; // returning list
 }
 
+Edge *BuildEdgeStructList(Point *p, int dimension, int nEdges)
+{
+    int k = 0; // Incrementation variable
+    // Allocating the Edges array dynamically:
+    Edge *edges = malloc(sizeof(Edge) * nEdges);
+    for (int i = 0; i < dimension; i++)
+    {
+        for (int j = i + 1; j < dimension; j++, k++)
+        {
+            edges[k].node1 = i + 1;
+            edges[k].node2 = j + 1;
+            edges[k].weight = compute_dist(&p[i], &p[i]);
+        }
+    }
+    return edges;
+}
+
 // Function that build the MST
 Edge **BuildMST(Edge **edges,Point *points, int nEdges, int dimension)
 {
@@ -159,7 +176,7 @@ int Tour_Weight(int *t, Point *p, int dimension)
     }
     nA = t[dimension-1];
     nB = t[0];
-    weight += compute_dist(&p[A-1],&p[nB-1]);
+    weight += compute_dist(&p[nA-1],&p[nB-1]);
 
     return weight;
 }

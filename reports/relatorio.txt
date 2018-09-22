@@ -7,18 +7,18 @@ Tabela de Resultados:
 Com flag de compilação -O2:
 
 PROB      TIME (s)    MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
-berlin52  <0.000001s  6078
-eil101    0.015625s   551
-tsp225    0.015625s   3561
-a280      <0.000001s  2434
-pr1002    0.109375s   224179
-d18512    49.781250s  592998
+berlin52  <0.000001s  6078        10114
+eil101    0.015625s   551         830
+tsp225    0.015625s   3561        5154
+a280      0.015625s   2434        3592
+pr1002    0.125000s   224179      342216
+d18512    49.781250s  592998      
 
 OBS.: 
 -> segfault no último caso!!!
 -> no último caso rodou infinitamente no valgrind!!!
 
-Com flag de compilação -O3: (Provavelmente está acontecendo alguma coisa errada)
+Com flag de compilação -O3: (Provavelmente está acontecendo alguma coisa erraeda)
 
 PROB      TIME (s)    MST WEIGHT  TOUR LEN  OPT TOUR  RATIO
 berlin52  <0.000001s
