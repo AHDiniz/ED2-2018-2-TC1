@@ -14,19 +14,14 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
-// Auxiliar function to calculate the euclidian distance between two cartesian points:
+#define BIG_DIMENSION 10000
+
 int compute_dist(Point *a, Point *b);
-// Function that build a list with all edges between two points:
 Edge *BuildEdgesList(Point *p, int dimension, int nEdges);
-// Function that build the MST
 Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension);
-// Function that build the tour
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight);
-// Function that add a directed adjacency between two nodes in a given graph (max adj/node = 6):
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
-// Recursive function that build the tour:
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
-// Function to calculate the weight of the tour
 int Tour_Weight(int *t, Point *p, int dimension);
 
 int main(int argc, char *argv[])
@@ -38,11 +33,12 @@ int main(int argc, char *argv[])
     Point *p;       // array of points
     Edge *edges;    // array of edge structures
     Edge **mst;     // array of the MST edges
-    int *tour;      // array of the tour
+    int *tour;
 
     double totalExecTime = 0.0; // Total execution time of the program in seconds (not considering I/O)
 
     // Reading input file, geting name, dimension and building an array with every point coordinate:
+
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
     clock_t init = clock();
@@ -50,15 +46,13 @@ int main(int argc, char *argv[])
     // Calculating number of edges
     nEdges = ((dimension - 1) * dimension) / 2;
 
-    // Building a array with all edges between two points
     edges = BuildEdgesList(p, dimension, nEdges);
-    // Sorting the edges by size
+
     qsort(edges, nEdges, sizeof(Edge), Edge_CompareWeight);
 
     // Building the MST
     mst = BuildMST(edges, p, nEdges, dimension);
-
-    // Destroing edge's array
+        
     free(edges);
 
     clock_t end = clock();
@@ -95,9 +89,11 @@ int main(int argc, char *argv[])
     free(mst);
     free(tour);
 
+
     return 0;
 }
 
+// Defining auxiliar function to calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b)
 {
     float xd = a->x - b->x;
@@ -106,6 +102,7 @@ int compute_dist(Point *a, Point *b)
     return round(sqrt(xd * xd + yd * yd));
 }
 
+// Function that build a list with all edges between two points:
 Edge *BuildEdgesList(Point *p, int dimension, int nEdges)
 {
     int i, j, k=0; // incrementation variables
@@ -119,9 +116,10 @@ Edge *BuildEdgesList(Point *p, int dimension, int nEdges)
             edges[k].weight = compute_dist(&p[i],&p[j]);
         }
     }
-    return edges; // returning list
+return edges; // returning list
 }
 
+// Function that build the MST
 Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension)
 {
     int i, j=0;
@@ -145,12 +143,15 @@ Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension)
             Point_Group(points, dimension, &points[nA-1], &points[nB-1]);
         }
     }
-    return mst;
+    
+return mst;
 }
 
+// Function that build the tour
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
 {
-    int i, j=0;                                 // incrementation variable
+    int i, j=0;                                      // incrementation variable
+    //int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
     int *t = malloc(dimension*sizeof(int));     // array of integers representing the tour
     int *adj = malloc(dimension*6*sizeof(int)); // array of integers representing the graph of the MST
 
@@ -164,14 +165,17 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
         Add_Adjacency(adj,mst[i]->node2,mst[i]->node1); // adding adjacency from node2 to node1
         *mstWeight += mst[i]->weight;                   // Calculating the tour's weight
     }
-    // Recursively building the tour
+
+    //RemoveRepeated(t, 2 * (dimension - 1));
+
     Tour(t,adj,nodes,1,&j);
-    // Freeing auxiliar array
+
     free(adj);
 
-    return t;
+return t;
 }
 
+// add a directed adjacency between two nodes in a given graph (max adj/node = 6)
 void Add_Adjacency(int *adj, int nodeA, int nodeB)
 {
     int i = 0;                // incrementation variable
@@ -185,6 +189,7 @@ void Add_Adjacency(int *adj, int nodeA, int nodeB)
     adj[nA + i] = nodeB;
 }
 
+// build the tour recursively
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize)
 {
     int i = 0;                      // incrementation variable
