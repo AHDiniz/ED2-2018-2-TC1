@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
     int dimension;  // problem's dimension
     int nEdges;     // number of edges
     Point *p;       // array of points
-    //Edge **e;       // array of edge pointers
     Edge *edges;    // array of edge structures
     Edge **mst;     // array of the MST edges
     int *tour;
