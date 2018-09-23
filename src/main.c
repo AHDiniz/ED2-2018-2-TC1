@@ -24,7 +24,6 @@ Edge **BuildMST_EdgeStruct(Edge *edges, Point *points, int nEdges, int dimension
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight);
 int *BuildTour_EdgeStruct(Edge **mst, Point *nodes, int dimension, int *mstWeight);
 int Tour_Weight(int *t, Point *p, int dimension);
-int CompareEdgeWeight(const void *edgeA, const void *edgeB);
 
 int main(int argc, char *argv[])
 {
@@ -35,7 +34,7 @@ int main(int argc, char *argv[])
     Point *p;       // array of points
     Edge *edges;    // array of edge structures
     Edge **mst;     // array of the MST edges
-    int *tour;
+    int *tour;      // array of the tour
 
     double totalExecTime = 0.0; // Total execution time of the program in seconds (not considering I/O)
 
@@ -50,7 +49,7 @@ int main(int argc, char *argv[])
 
     edges = BuildEdgeStructList(p, dimension, nEdges);
 
-    qsort(edges, nEdges, sizeof(Edge), CompareEdgeWeight);
+    qsort(edges, nEdges, sizeof(Edge), Edge_CompareWeight);
 
     // Building the MST
     mst = BuildMST_EdgeStruct(edges, p, nEdges, dimension);
@@ -305,11 +304,4 @@ int *BuildTour_EdgeStruct(Edge **mst, Point *nodes, int dimension, int *mstWeigh
     free(adj);
 
 return t;
-}
-
-int CompareEdgeWeight(const void *edgeA, const void *edgeB)
-{
-    Edge *a = (Edge*)edgeA;
-    Edge *b = (Edge*)edgeB;
-    return a->weight - b->weight;
 }
