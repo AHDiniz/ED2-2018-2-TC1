@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
     init = clock();
 
-    int mstWeight;
+    int mstWeight=0;
 
     // Building the tour
     tour = BuildTour_EdgeStruct(mst, p, dimension, &mstWeight);
