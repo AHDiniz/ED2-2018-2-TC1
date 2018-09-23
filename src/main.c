@@ -16,7 +16,6 @@
 
 #define BIG_DIMENSION 1
 
-void RemoveRepeated(int *array, int size);
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
 int compute_dist(Point *a, Point *b);
@@ -28,7 +27,6 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight);
 int *BuildTour_EdgeStruct(Edge **mst, Point *nodes, int dimension, int *mstWeight);
 int Tour_Weight(int *t, Point *p, int dimension);
 int CompareEdgeWeight(const void *edgeA, const void *edgeB);
-void PrintEdgeFile(Edge edge, FILE *file);
 
 int main(int argc, char *argv[])
 {
@@ -250,8 +248,6 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
         *mstWeight += mst[i]->weight;                     // Calculating the tour's weight
     }
 
-    //RemoveRepeated(t, 2 * (dimension - 1));
-
     Tour(t, adj, nodes, 1, &j);
 
     free(adj);
@@ -296,16 +292,6 @@ void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize)
     {
         Tour(tour, adj, nodes, next, tourSize);
     }
-}
-
-// Function that removes the repeated items of an integer array:
-// The repeated items are changed to 0
-void RemoveRepeated(int *array, int size)
-{
-    for (int i = 0; i < size - 1; i++)
-        for (int j = i + 1; j < size; j++)
-            if (array[i] == array[j])
-                array[j] = 0;
 }
 
 int Tour_Weight(int *t, Point *p, int dimension)
@@ -370,8 +356,6 @@ int *BuildTour_EdgeStruct(Edge **mst, Point *nodes, int dimension, int *mstWeigh
         *mstWeight += mst[i]->weight;                   // Calculating the tour's weight
     }
 
-    //RemoveRepeated(t, 2 * (dimension - 1));
-
     Tour(t,adj,nodes,1,&j);
 
     free(adj);
@@ -384,37 +368,4 @@ int CompareEdgeWeight(const void *edgeA, const void *edgeB)
     Edge *a = (Edge*)edgeA;
     Edge *b = (Edge*)edgeB;
     return a->weight - b->weight;
-}
-
-void PrintEdgeFile(Edge edge, FILE *file)
-{
-    fprintf(file, "%d %d\n", edge.node1, edge.node2);
-}
-
-void PrintMST_EdgeStruct(Edge *edges, char *name, int dimension)
-{
-    int i;
-
-    // Starting the file's name as the relative datapath:
-    char *fileName = malloc(strlen(name) + 17);
-    strcpy(fileName, "../out/mst/");
-    // Including <<name>>.mst:
-    strcat(fileName, name);
-    strcat(fileName, ".mst");
-
-    // Opening output file:
-    FILE *out = fopen(fileName, "w"); // criating output file
-
-    // Printing header:
-    fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);
-    // Printing edges:
-    for (i = 0; i < dimension - 1; i++)
-    {
-        PrintEdgeFile(edges[i], out);
-    }
-    fprintf(out, "EOF");
-
-    // Closing file and destroing filename:
-    fclose(out);
-    free(fileName);
 }
