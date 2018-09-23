@@ -14,8 +14,6 @@
 #include "../include/point.h"
 #include "../include/edge.h"
 
-#define BIG_DIMENSION 1
-
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
 int compute_dist(Point *a, Point *b);
@@ -35,7 +33,7 @@ int main(int argc, char *argv[])
     int dimension;  // problem's dimension
     int nEdges;     // number of edges
     Point *p;       // array of points
-    Edge **e;       // array of edge pointers
+    //Edge **e;       // array of edge pointers
     Edge *edges;    // array of edge structures
     Edge **mst;     // array of the MST edges
     int *tour;
@@ -51,101 +49,48 @@ int main(int argc, char *argv[])
     // Calculating number of edges
     nEdges = ((dimension - 1) * dimension) / 2;
 
-    if (dimension < BIG_DIMENSION)
-    {
-        // Building a array with all edges between two points
-        e = BuildEdgesList(p, dimension, nEdges);
-        qsort(e, nEdges, sizeof(Edge *), Edge_CompareWeight);
+    edges = BuildEdgeStructList(p, dimension, nEdges);
 
-        // Building the MST
-        mst = BuildMST(e, p, nEdges, dimension);
+    qsort(edges, nEdges, sizeof(Edge), CompareEdgeWeight);
 
-        // Destroing edge's array
-        for (i = 0; i < nEdges; i++)
-        {
-            free(e[i]);
-        }
-        free(e);
-
-        clock_t end = clock();
-
-        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
-
-        // Printing the MST file
-        TSPIO_PrintMST(mst, name, dimension);
-
-        init = clock();
-
-        int mstWeight;
-
-        // Building the tour
-        tour = BuildTour(mst, p, dimension, &mstWeight);
-
-        end = clock();
-
-        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
-
-        printf("Total program execution: %fs\n", totalExecTime);
-        printf("MST Weight = %d\n", mstWeight);
-        printf("Tour Weight = %d\n", Tour_Weight(tour, p, dimension));
-
-        // Printing the tour file
-        TSPIO_PrintTour(tour, name, dimension);
-
-        // Destroing the utilized structures
-        free(p);
-        for (i = 0; i < dimension - 1; i++)
-        {
-            free(mst[i]);
-        }
-        free(mst);
-        free(tour);
-    }
-    else
-    {
-        edges = BuildEdgeStructList(p, dimension, nEdges);
-
-        qsort(edges, nEdges, sizeof(Edge), CompareEdgeWeight);
-
-        // Building the MST
-        mst = BuildMST_EdgeStruct(edges, p, nEdges, dimension);
+    // Building the MST
+    mst = BuildMST_EdgeStruct(edges, p, nEdges, dimension);
         
-        free(edges);
+    free(edges);
 
-        clock_t end = clock();
+    clock_t end = clock();
 
-        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
-        // Printing the MST file
-        TSPIO_PrintMST(mst, name, dimension);
+    // Printing the MST file
+    TSPIO_PrintMST(mst, name, dimension);
 
-        init = clock();
+    init = clock();
 
-        int mstWeight;
+    int mstWeight;
 
-        // Building the tour
-        tour = BuildTour_EdgeStruct(mst, p, dimension, &mstWeight);
+    // Building the tour
+    tour = BuildTour_EdgeStruct(mst, p, dimension, &mstWeight);
 
-        end = clock();
+    end = clock();
 
-        totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
+    totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
-        printf("Total program execution: %fs\n", totalExecTime);
-        printf("MST Weight = %d\n", mstWeight);
-        printf("Tour Weight = %d\n", Tour_Weight(tour, p, dimension));
+    printf("Total program execution: %fs\n", totalExecTime);
+    printf("MST Weight = %d\n", mstWeight);
+    printf("Tour Weight = %d\n", Tour_Weight(tour, p, dimension));
 
-        // Printing the tour file
-        TSPIO_PrintTour(tour, name, dimension);
+    // Printing the tour file
+    TSPIO_PrintTour(tour, name, dimension);
 
-        // Destroing the utilized structures
-        free(p);
-        for (i = 0; i < dimension - 1; i++)
-        {
-            free(mst[i]);
-        }
-        free(mst);
-        free(tour);
+    // Destroing the utilized structures
+    free(p);
+    for (i = 0; i < dimension - 1; i++)
+    {
+        free(mst[i]);
     }
+    free(mst);
+    free(tour);
 
     return 0;
 }
