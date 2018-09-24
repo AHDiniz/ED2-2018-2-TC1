@@ -2,6 +2,12 @@
 
 Problem related to TSP.
 
-How to execute the program: ./trab1 some_file.tsp
+How to select the problem: change the PROBLEM variable in the Makefile
+
+How to compile the project: just run "make" in the command line
+
+How to run a problem: run "make run" in the command line
+
+How to visualize the result: (you need to have the matplotlib python extension) run "make visualize" in the command line
 
 OBS.: The draft files are written in portuguese.
