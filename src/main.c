@@ -118,7 +118,7 @@ Edge *BuildEdgeList(Point *p, int dimension, int nEdges)
             edges[k].weight = compute_dist(&p[i],&p[j]);
         }
     }
-return edges; // returning list
+    return edges; // returning list
 }
 
 void Add_Adjacency(int *adj, int nodeA, int nodeB)
@@ -199,7 +199,7 @@ Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension)
         }
     }
     
-return mst;
+    return mst;
 }
 
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
@@ -224,5 +224,5 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
 
     free(adj);
 
-return t;
+    return t;
 }
