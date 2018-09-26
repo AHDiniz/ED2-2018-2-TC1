@@ -13,18 +13,17 @@
 
 /**
  * Creating a new point type based on a struct containing:
- * float x: horizontal coordinate of the point
- * float y: vertical coordinate of the point
- * int group: representative of conected points
+ * float x, float y => coordinates of the point
+ * int group => representative of conected points
 */
 typedef struct {
-    float x, y; // Cartesian coordinates of the point
-    int group;  // group the point belongs
+    float x, y;
+    int group;
 } Point;
 
 /**
  * Declaring the function that prints a given point:
- * Inputs: pointer to the point and a NULL pointer (allows callback to the list destruction function)
+ * Inputs: pointer to the point and a NULL pointer
  * Output: false
  * Conditions: existent and allocated function and a NULL pointer
  * Side effects: none

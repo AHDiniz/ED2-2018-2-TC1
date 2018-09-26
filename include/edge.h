@@ -23,7 +23,7 @@ typedef struct {
 } Edge;
 
 /**
- * Declaring the function that prints a given edge: (structured for a callback that won't be needed)
+ * Declaring the function that prints a given edge:
  * Inputs: pointer to the edge and a NULL pointer
  * Output: false
  * Conditions: existent and allocated edge
@@ -32,7 +32,7 @@ typedef struct {
 bool Edge_Print(void *edge, void *placeholder);
 
 /**
- * Declaring the function that prints a given edge on a given file: (structured for a callback that won't be needed)
+ * Declaring the function that prints a given edge on a given file:
  * Inputs: pointer to the edge and a FILE pointer
  * Output: false
  * Conditions: existent and allocated edge and FILE enable to whrite

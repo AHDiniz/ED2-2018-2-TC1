@@ -14,7 +14,7 @@
 
 /**
  * Declaring the function that reads the input file:
- * Inputs: the file's name, the name of the problem and a pointer to the dimension of the problem
+ * Inputs: the filename, the name of the problem and a pointer to the dimension of the problem
  * Output: array of pointers to the cartisian points
  * Conditions: the file must be an existent .tsp file
  * Side effects: the array is DYNAMICALLY alocated, REMEMBER TO DESTROY IT LATER!!!

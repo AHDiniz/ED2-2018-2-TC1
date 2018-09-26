@@ -107,7 +107,7 @@ void TSPIO_PrintMST(Edge **edges, char *name, int dimension)
     strcat(fileName,".mst");
 
     // Opening output file:
-    FILE *out = fopen(fileName,"w"); // criating output file
+    FILE *out = fopen(fileName,"w"); // creating output file
 
     // Printing header:
     fprintf(out, "NAME: %s\nTYPE: MST\nDIMENSION: %d\nMST_SECTION\n", name, dimension);

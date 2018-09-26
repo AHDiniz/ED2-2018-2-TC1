@@ -16,46 +16,46 @@
 
 // Function that build a list with all edges between two points:
 Edge *BuildEdgeList(Point *p, int dimension, int nEdges);
-// Function that build the MST
+// Function that build the MST:
 Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension);
-// Function that build the tour
+// Function that build the tour:
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight);
 // Auxiliar function that calculate the euclidian distance between two cartesian points:
 int compute_dist(Point *a, Point *b);
 // Auxiliar function that add a directed adjacency between two nodes in a given graph (max adj/node = 6):
 void Add_Adjacency(int *adj, int nodeA, int nodeB);
-// Auxiliar function that recursively build the tour
+// Auxiliar function that recursively build the tour:
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize);
-// Auxiliar function that calculate the tour lenght
+// Auxiliar function that calculate the tour lenght:
 int Tour_Weight(int *t, Point *p, int dimension);
 
+// Program's entry point:
 int main(int argc, char *argv[])
 {
-    int i;          // incrementation variable
-    char name[20];  // problem's name
-    int dimension;  // problem's dimension
-    int nEdges;     // number of edges
-    Point *p;       // array of points
-    Edge *edges;    // array of edge structures
-    Edge **mst;     // array of the MST edges
-    int *tour;      // array of the tour
+    int i; // incrementation variable
+    char name[20]; // problem's name
+    int dimension; // problem's dimension
+    int nEdges; // number of edges
+    Point *p; // array of points
+    Edge *edges; // array of edge structures
+    Edge **mst; // array of the MST edges
+    int *tour; // array of the tour
 
     double totalExecTime = 0.0; // Total execution time of the program in seconds (not considering I/O)
 
     // Reading input file, geting name, dimension and building an array with every point coordinate:
-
     p = TSPIO_ReadEntry(argv[1], name, &dimension);
 
     clock_t init = clock();
 
-    // Calculating number of edges
+    // Calculating number of edges:
     nEdges = ((dimension - 1) * dimension) / 2;
 
     edges = BuildEdgeList(p, dimension, nEdges);
 
     qsort(edges, nEdges, sizeof(Edge), Edge_CompareWeight);
 
-    // Building the MST
+    // Building the MST:
     mst = BuildMST(edges, p, nEdges, dimension);
         
     free(edges);
@@ -64,14 +64,14 @@ int main(int argc, char *argv[])
 
     totalExecTime += ((double)(end - init)) / CLOCKS_PER_SEC;
 
-    // Printing the MST file
+    // Printing the MST file:
     TSPIO_PrintMST(mst, name, dimension);
 
     init = clock();
 
     int mstWeight=0;
 
-    // Building the tour
+    // Building the tour:
     tour = BuildTour(mst, p, dimension, &mstWeight);
 
     end = clock();
@@ -110,9 +110,11 @@ Edge *BuildEdgeList(Point *p, int dimension, int nEdges)
     int i, j, k=0; // incrementation variables
     Edge *edges = malloc(nEdges*sizeof(Edge));
 
-    // building a edge between each point in the array
-    for(i = 0 ; i < dimension ; i++) {          // selecting a point "i"
-        for(j = i+1 ; j < dimension ; j++, k++) {    // building a edge between "i" and each subsequent point
+    // building an edge between each point in the array
+    for (i = 0; i < dimension; i++) // selecting a point "i"
+    {
+        for (j = i + 1; j < dimension; j++, k++) // building an edge between "i" and each subsequent point
+        {
             edges[k].node1 = i+1;
             edges[k].node2 = j+1;
             edges[k].weight = compute_dist(&p[i],&p[j]);
@@ -123,9 +125,9 @@ Edge *BuildEdgeList(Point *p, int dimension, int nEdges)
 
 void Add_Adjacency(int *adj, int nodeA, int nodeB)
 {
-    int i = 0;                // incrementation variable
+    int i = 0; // incrementation variable
     int nA = (nodeA - 1) * 6; // position of the fist node's adjacencies in the graph
-    // serching the fist empty position
+    // serching the fist empty position:
     while (adj[nA + i] != 0)
     {
         i += 1;
@@ -136,22 +138,22 @@ void Add_Adjacency(int *adj, int nodeA, int nodeB)
 
 void Tour(int *tour, int *adj, Point *nodes, int currentNode, int *tourSize)
 {
-    int i = 0;                      // incrementation variable
-    int next;                       // auxiliar variable
-    int position = currentNode - 1; // position of the node in a array (initialized as the point's array)
+    int i = 0; // incrementation variable
+    int next; // auxiliar variable
+    int position = currentNode - 1; // position of the node in an array (initialized as the point's array)
 
-    // if the node was alredy marked the function is aborted
+    // if the node was alredy marked the function is aborted:
     if (nodes[position].group == 0)
     {
         return;
     }
     // else, the node is marked and added to the tour
-    nodes[position].group = 0;     // marking node
+    nodes[position].group = 0; // marking node
     tour[*tourSize] = currentNode; // adding to the tour
-    *tourSize += 1;                // incrementing tour size
+    *tourSize += 1; // incrementing tour size
 
     position *= 6; // updating position to be used in the adjacencies array
-    // executing tour in each adjacent and not empty node (max of 6)
+    // executing tour in each adjacent and not empty node (max of 6):
     for (next = adj[position + i]; next != 0 && i < 6; next = adj[position + (++i)])
     {
         Tour(tour, adj, nodes, next, tourSize);
@@ -204,9 +206,8 @@ Edge **BuildMST(Edge *edges, Point *points, int nEdges, int dimension)
 
 int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
 {
-    int i, j=0;                                      // incrementation variable
-    //int *t = malloc(2*(dimension-1)*sizeof(int));   // arrey of integers representing the tour
-    int *t = malloc(dimension*sizeof(int));     // array of integers representing the tour
+    int i, j=0; // incrementation variable
+    int *t = malloc(dimension*sizeof(int)); // array of integers representing the tour
     int *adj = malloc(dimension*6*sizeof(int)); // array of integers representing the graph of the MST
 
     // initializing adj as 0
@@ -217,7 +218,7 @@ int *BuildTour(Edge **mst, Point *nodes, int dimension, int *mstWeight)
     {
         Add_Adjacency(adj,mst[i]->node1,mst[i]->node2); // adding adjacency from node1 to node2
         Add_Adjacency(adj,mst[i]->node2,mst[i]->node1); // adding adjacency from node2 to node1
-        *mstWeight += mst[i]->weight;                   // Calculating the tour's weight
+        *mstWeight += mst[i]->weight; // Calculating the tour's weight
     }
 
     Tour(t,adj,nodes,1,&j);
